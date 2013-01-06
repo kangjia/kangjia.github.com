@@ -1,1 +1,1032 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>康有才de胡说八道</title>
+  <meta name="author" content="kangjia">
+
+  
+  <meta name="description" content="BackBone.js BackBone.js 继承了undercore的集合、数组辅助方法；继承events对象，支持自定义事件和事件命名空间；支持自定义选择器；支持自定义模板引擎的一个MVC框架。 提供了如下三个对象： Router 负责监听URL变化，是app入口， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kangjia.github.com/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="康有才de胡说八道" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">康有才de胡说八道</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kangjia.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/backbone-js-use-summary/">backbone.js使用小结</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T02:14:44+08:00" pubdate data-updated="true">2012-12-07 Fri</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>BackBone.js</h1>
+
+<p>BackBone.js 继承了undercore的集合、数组辅助方法；继承events对象，支持自定义事件和事件命名空间；支持自定义选择器；支持自定义模板引擎的一个MVC框架。</p>
+
+<p>提供了如下三个对象：</p>
+
+<ul>
+<li><p>Router 负责监听URL变化，是app入口，作有状态的controller</p></li>
+<li><p>View 负责渲染，监听/处理浏览器事件；对外提供渲染行为/事件行为接口</p></li>
+<li><p>Model/Collection 负责处理模型数据和后端数据交互，对外提供数据处理API</p></li>
+<li><p>调用顺序:
+<code>R-&gt;V-&gt;M</code>
+<code>R-&gt;V R-&gt;M</code></p></li>
+</ul>
+
+
+<h2>Router</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>routes</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>View</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>el</p></li>
+<li><p>events</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p><code>click .abc : funName</code></p>
+
+<ul>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>render</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Model</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>urlRoot</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>get</p></li>
+<li><p>set</p></li>
+<li><p>save</p></li>
+<li><p>destory</p></li>
+<li><p>fetch</p></li>
+<li><p>parse</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Collection</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>model</p></li>
+<li><p>url</p></li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>fetch</p></li>
+<li><p>get</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>其他</h2>
+
+<h6>bind 太弱了，只有bind , unbind , trigger 。 小心循环绑定事件。</h6>
+
+<h6>用户操作是放在view的events里处理，还是放在router里的routes处理比较迷惑。</h6>
+
+<pre><code>目前是需要记录状态的都丢到routes里处理了。 
+</code></pre>
+
+<h6>调用流程是在R里生成V和M的实例，然后调用？还是直接调用V的实例，在V的构造里去生成M的实例？</h6>
+
+<h6>不同的M或者V之间调用缺少消息中间层，怎么处理才能方便模块加载卸载？</h6>
+
+<pre><code>目前是直接通过一个message对象来处理，有点丑陋。 
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/jquery-data-method-bug/">jQuery Data取值小坑</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-03T21:23:10+08:00" pubdate data-updated="true">2012-12-03 Mon</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>开发中经常需要在DOM上绑定数据，类似于</p>
+
+<pre><code>   &lt;li class="active" data-id="xxx"&gt;&lt;/li&gt;
+</code></pre>
+
+<p>然后使用jQuery的data函数去取。</p>
+
+<pre><code>$("li.active").data("id");
+</code></pre>
+
+<p>但是当data-id的数据为数字组成的字符串，会出现问题，比如&#8221;01234&#8221;，会变成&#8221;1234&#8221;
+查看了jQuery下源码，如下：</p>
+
+<pre><code>function dataAttr( elem, key, data ) {
+    // If nothing was found internally, try to fetch any
+    // data from the HTML5 data-* attribute
+    if ( data === undefined &amp;&amp; elem.nodeType === 1 ) {
+
+        var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+
+        data = elem.getAttribute( name );
+
+        if ( typeof data === "string" ) {
+            try {
+                data = data === "true" ? true :
+                data === "false" ? false :
+                data === "null" ? null :
+                jQuery.isNumeric( data ) ? +data :
+                    rbrace.test( data ) ? jQuery.parseJSON( data ) :
+                    data;
+            } catch( e ) {}
+
+            // Make sure we set the data so it isn't changed later
+            jQuery.data( elem, key, data );
+
+        } else {
+            data = undefined;
+        }
+    }
+
+    return data;
+}
+</code></pre>
+
+<p>jQuery会处理data的值</p>
+
+<pre><code>jQuery.isNumeric( data ) ? +data 
+</code></pre>
+
+<p>所以在取uuid之类的值时，尽量使用$(el).atrr(&#8220;data-id&#8221;);</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/node-js-outline-view/">node.js速毁提纲</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-04T20:45:18+08:00" pubdate data-updated="true">2012-11-04 Sun</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>简介</h3>
+
+<p>基于v8引擎的，可运行于server端的javascript</p>
+
+<h3>安装使用</h3>
+
+<p>http://nodejs.org</p>
+
+<h3>语法</h3>
+
+<p>ECMAScript5</p>
+
+<h3>包机制</h3>
+
+<p>require(&#8220;&#8221;)</p>
+
+<h3>内置数据类型</h3>
+
+<p>跟javascript一样…</p>
+
+<h3>API</h3>
+
+<ul>
+<li><p>fs</p></li>
+<li><p>http</p></li>
+<li><p>process</p></li>
+<li><p>Events</p></li>
+</ul>
+
+
+<h3>事件驱动 异步IO</h3>
+
+<ul>
+<li><p>Events</p></li>
+<li><p>callback</p></li>
+</ul>
+
+
+<h3>异常、调试、IDE</h3>
+
+<p>webstorm</p>
+
+<h3>advanced</h3>
+
+<ul>
+<li><p>npm</p></li>
+<li><p>web</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/mac_air-and-thinkpad_keyboard/">Mac Air和Thinkpad键盘</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-18T22:29:08+08:00" pubdate data-updated="true">2012-10-18 Thu</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>        纤薄的Mac Air和皮实的Thinkpad的trackpoint键盘是很不搭的东西，至少颜色就是一个土鳖黑，一个是洁白银。缘由是实在受不了air的无键程无反馈键盘，入手了凸显浓郁的屌丝气息的TP trackpoint键盘。敲击着噼噼啪啪的时候，忍不住看看air的充满人性关怀的触摸板，一阵不舍。抚摸键盘，自言自语到：小红帽也是神器。折腾许久，还是没搞定键盘自带中键的问题。</p>
+
+<p>        最后的结果是在全手指操作中，如果只用air，超薄键盘的虐手想要自杀；如果只用trackpoint键盘，没有人性化的上下翻页。索性将trackpoint键盘摆在左边，air放在右边，伸手即可使用触摸板了。虽然有些别扭，但是也是顺了个其所长。</p>
+
+<p>        想起了以前和朋友玩游戏，选择门派时总是左右为难，各个门派都有明显的缺陷，当然也有明显的特长。纠结很久后总是说如果有一个门派能集各家之长多好。当然，这是不可能的，游戏要讲平衡，现实也要讲规则。后来和朋友开始计算哪些门派配合后的攻防敏法封最合适，开始琢磨了配合，发挥各自所长。</p>
+
+<p>        圣经说上帝造人后怕那人孤独，又抽取了那人的肋骨造了女人。男人从一出生，据说即要找寻自己缺失的那一部分。一路跌跌撞撞，有的找到了，而有的往往总是找了跟自己相像的一个。完美的意思应该是可合作，而不是独优秀。</p>
+
+<p>        早上上班有时和老婆一起去挤地铁。一般车子到了西二旗，可能会有座位。一个人时，总是很轻松的坐上去，两个人在一起时，必然会左顾右盼，希望越大，失望越大，最后还是继续站着聊天。虽然会落不着座位休息一会儿，但是一路有人伴左右也是别有一番意思。当然，合作的必然结果还是效率降低，总是有失有得。</p>
+
+<p>        据说人成熟的标志之一是接受不完美。容忍、接受，然后再继续探寻。可能Air的键盘会有机械键盘的手感，trackpoint键盘也会有合适的驱动和人性化的触摸板。也可能是慢慢适应了一种新的操作。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/08/yestoday-and-tomorrow/">最近</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-28T23:03:42+08:00" pubdate data-updated="true">2012-08-28 Tue</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近拍了婚纱照，好累。</p>
+
+<p>最近身体不太好，要休养。</p>
+
+<p>最近看了一本小说：《球星闪电》。</p>
+
+<p>最近看了一个源码，backbone。有没看懂的地方。</p>
+
+<p>最近在学CSS，能简单布局了，会用photoshop拼图了。</p>
+
+<p>最近在看一门语言，python。该看模块了。目前为止很合我这个纠结症病人的胃口。</p>
+
+<p>最近做了俩次红娘，也没继续跟踪结果。</p>
+
+<p>最近准备试试美股。</p>
+
+<p>最近一直在家吃饭，很喜欢。要感谢老婆和妹妹。</p>
+
+<p>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-华丽的分割线&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</p>
+
+<p>发现，自己越来越习惯和电脑沟通，越来越不善于和人类沟通了。</p>
+
+<p>所以，继续看python。</p>
+
+<p>读一下seajs的源码。</p>
+
+<p>要学习一下object-c，至少能看懂。</p>
+
+<p>学习写nodejs，把wow完成。</p>
+
+<p>把《乌合之众》读完。</p>
+
+<p>哦，还要举办婚礼。10.4号  ～_～</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/about-read-book/">关于读书</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-11T05:32:58+08:00" pubdate data-updated="true">2012-06-11 Mon</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>老婆问我：为什么你连看电视的时候都抱着一本书？
+答曰：高中时，一朋友数学成绩特别好。我请教学习之道。朋友说他喜欢一个姑娘，但是姑娘的数学不好。他为了能靠近姑娘，只好拼命学习数学。
+老婆警惕的又问：你喜欢谁家的姑娘了？
+坦白之：我喜欢上了装逼！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/svn-merge/">Svn Merge</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-01T05:48:52+08:00" pubdate data-updated="true">2012-06-01 Fri</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近在折腾svn及开发流程相关的东西。在分支-开发-合并的模型下，merge成了家常便饭。</p>
+
+<p>记两个原来没用过的命令</p>
+
+<p><strong>1.</strong></p>
+
+<pre><code>svn mergeinfo $from $to --show-revs merged
+</code></pre>
+
+<p>查看从分支$from merge到 $to的合并历史</p>
+
+<pre><code>svn mergeinfo $from $to --show-revs eligible
+</code></pre>
+
+<p>查看从分支$from merge到 $to的未合并版本</p>
+
+<p>使用场景：并行开发时，进入测试前，或者发布前，检测是否从trunk做了合并，确保代码安全</p>
+
+<p><strong>2.</strong></p>
+
+<pre><code>svn merge --reintegrate $trunk
+</code></pre>
+
+<p>提交branch的修改到trunk</p>
+
+<p>使用场景：并行开发时，发布后，将发布内容同步更新到trunk</p>
+
+<p>根据svn mergeinfo写了个node的check程序，https://gist.github.com/2843516
+不会写svn钩子，如果会可以做集成检测了。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/mac-app-list/">Mac App List</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-13T23:16:59+08:00" pubdate data-updated="true">2012-05-13 Sun</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>小黑在夏天开始罢工几次后，终于忍不住收了个air。还好原来经常折腾*unix系统，经过一天努力，基本可以在mac下干活了。
+简单记录一下所使用的软件。
+所使用软件的原则有两个：
+1.我不是什么圣人，也会用盗版，但是原则还是能买的就自己买，不能买的就尽量使用free（我一直觉着free不是免费的，而是自由的意思。）
+2.能用原生用原生，尽量少定制，少装重复软件，少配置，方便迁移。</p>
+
+<p>办公：
+1.原生mail
+2.ical+googlecalendar
+3.evernote
+4.office2011 ！盗版！如果PM都用wiki，我真的可以放弃word了..
+5.skitch
+6.有道词典
+7.sougou输入法</p>
+
+<p>互联网：
+1.chrome
+2.filezilla
+3.thunder
+4.QQ</p>
+
+<p>开发：
+1.sublime text2（共享版，会提示购买，注册版59$，考虑团购ing）
+2.firefox+firebug+dnsflusher
+3.xcode（为了安装brew）
+4.git
+5.svnx
+6.vim（vimrc和bashrc都丢到了github）
+7.nodejs
+8.nginx(记得配置path)
+9.brew install svn1.7 (mv /usr/bin中原有的svn东西)
+10.seashore</p>
+
+<p>工具：
+1.appcleaner
+2.cccleaner
+3.spotlight
+4.totalterminal
+5.cinch（窗口放大，free版，提示注册，注册版45￥。）
+6.finderpath（俩功能：一个是拿path，一个是快速调用terminal我有用）</p>
+
+<p>几个网址：
+http://wbond.net/sublime_packages/community
+https://github.com/kangjia/env</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/team-building-summary/">团队建设总结</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-07T08:14:23+08:00" pubdate data-updated="true">2012-04-07 Sat</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre><code> 首先说一下背景：团队是小团队，技术团队，人数10人以下。其次这个团队也是一个结构化团队，各种背景的同学都有，不像以前是同级生型团队。
+
+
+
+
+
+ 团队人员从少到多，在这个过程中，我们团队的同学逐渐暴露的问题也如同大部分技术团队一致：  
+
+ 1.和其他部门合作过程中沟通出现问题。  
+
+ 2.工作目标不明确，工作效率不高。
+
+
+
+
+
+
+
+
+
+
+
+ 为了处理这两个问题，和同学们进行充分沟通，把问题细化后分为以下几方面进行建设。（不是一起执行，也是边走边改。）
+
+
+
+
+
+
+
+
+
+
+
+**1.明确宣贯团队目标**
+
+
+
+
+
+目标：无加班，无delay！每个人都有成长，并且有成长的输出。
+
+
+
+
+
+**2.解决沟通问题**
+
+
+
+
+
+2.1流程制定，把我作为PM方面沟通工作统一接口。
+
+
+
+
+
+2.2和上下游搞好关系，明确各种流程，强调大家严格执行流程。
+
+
+
+
+
+2.3明确与其他技术部门沟通要素：快速制定接口，主动推进。遇到沟通问题，速度升级。
+
+
+
+
+
+**3.营造轻松快乐工作氛围。**
+
+
+
+
+
+3.1组建rtx群，及时解决大家各种问题，尽量快乐工作。
+
+
+
+
+
+3.2组织读书分享和整个部门的团队活动。
+
+
+
+
+
+**4.增强信任感和团队感**
+
+
+
+
+
+4.1承担重点工作，加强自测，输出靠谱代码，给合作部门增加信任感，增加话语权。
+
+
+
+
+
+4.2陪同同学加班发布，随时支持他们的工作，增强团队之间信任感。
+
+
+
+
+
+**5.工作任务可控化**
+
+
+
+
+
+5.1统一任务出口，所有任务由我为出口，尽量把任务的问题在我这个环节控制住。
+
+
+
+
+
+5.2执行工作日报，随时监控预警风险。
+
+
+
+
+
+
+
+
+
+
+
+在这些实践中，一直真心实意的的，很信任和同学们进行谈心，了解他们的想法，尽量争取最多的支持让他们做自己有兴趣的东西。
+
+
+
+
+
+在这个过程中，上述内容执行中，也遇到了一些问题。
+
+
+
+
+
+比如：把更多的沟通工作放我这边了，有同学就会遇到沟通问题就上升到我这里，形成了依赖。所以执行中也做了微调，鼓励大家在目标明确、风险可控的情况下，进行主动自己处理。
+
+
+
+
+
+还有一个很大的问题是：有时候团队个人目标和公司目标不是足够match的时候，我也只能充当说客，说服大家尽量先满足公司目标。坦白的讲：这个问题出现的本质是我没有对一些事情的方向掌控好。
+
+
+
+
+
+
+
+
+    最后一个问题是没做好未来结构化组织的基础搭建。虽然扁平化是我喜欢的，但是会让同学们的职业规划感觉不到期望或者下一个位置在哪里。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+在不到半年的持续努力下，虽然离有足够输出和成长还有距离，但是我们整个团队的执行力得到了提升，至少解决了大部分问题，整个团队可以比较流畅的run起来了。
+
+
+
+
+
+
+
+
+
+
+
+**"不管是做产品、做管理，不要去违背人性"** -----引用一个很尊敬的同学的话作为结束，也作为以后自己工作的指导。
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/03/leave-qunar/">离职</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-03-31T06:35:37+08:00" pubdate data-updated="true">2012-03-31 Sat</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><pre><code>   今天算离职的事情公布了，剩下的也都是扫尾工作和走离职流程了。
+    加盟Qunar到现在，一年半了，不长不短。有欢乐，有基友，有争吵，就如同任何一个公司，有好的，也有不好的。借此之际，也做一下总结。
+    从入职Qunar在各个频道打杂，到全职团购频道，再到组建团购前端团队支持团购、度假等频道工作。还是很感谢领导的包容和支持！
+    从前端门外汉到半瓶水，非常感谢这个过程中金埔给了我足够宽松的时间学习和折腾。
+    从一个人死磕到各个新同学的加盟。而且我的团队从无到有，事情从乱到顺，产出越来越好。这一切都是在浩浩给我足够的时间下、各个同学的支持下才能做到的。
+    回头一看，无论是个人还是团队，这一切也的确是很有成就感的。尤其是2012Q1的事情都一步一步在落实。
+
+    突然下笔无言了，不一一点名煽情了。下面大家的任务还很重，各位加油吧。
+    说点开心的，下面我的重心都是我大喜的事情了。在这个人生只有一次的机会上，我将全力出演！
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/backbone-js-use-summary/">backbone.js使用小结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/jquery-data-method-bug/">jQuery data取值小坑</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/node-js-outline-view/">node.js速毁提纲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/mac_air-and-thinkpad_keyboard/">Mac Air和Thinkpad键盘</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/yestoday-and-tomorrow/">最近</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - kangjia -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

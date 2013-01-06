@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>form嵌套问题 - 康有才de胡说八道</title>
+  <meta name="author" content="kangjia">
+
+  
+  <meta name="description" content="背景 因为要做一个组件提供市场部与其他网站合作使用，所以需要一段HTML，其实有一个功能是提交到Qunar的接口。考虑通过form提交来实现接口交互。为了防止市场部将HTML代码粘贴到其他网站的form中，保证提交市场部的HTML代码健壮，特别测试了如果出现form嵌套的情况 测试代码 HTML1 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kangjia.github.com/blog/2011/04/form-nest-test/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="康有才de胡说八道" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">康有才de胡说八道</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kangjia.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Form嵌套问题</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-02T23:49:27+08:00" pubdate data-updated="true">2011-04-02 Sat</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><strong>背景</strong></p>
+
+<p>因为要做一个组件提供市场部与其他网站合作使用，所以需要一段HTML，其实有一个功能是提交到Qunar的接口。考虑通过form提交来实现接口交互。为了防止市场部将HTML代码粘贴到其他网站的form中，保证提交市场部的HTML代码健壮，特别测试了如果出现form嵌套的情况</p>
+
+<p>测试代码</p>
+
+<p>HTML1：</p>
+
+<pre><code>                ipt1
+
+
+
+
+                ipt2
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        inipt1
+
+
+
+
+                        inipt2
+</code></pre>
+
+<p>HTML2</p>
+
+<h3>FORM提交内容:</h3>
+
+<h1></h1>
+
+<p>HTML3</p>
+
+<h3>FORM提交内容:</h3>
+
+<h1></h1>
+
+<p><strong>测试结果</strong></p>
+
+<p>经测试，提交的地址是外边的form的action。即form嵌套form的时候，会提交最外边的form</p>
+
+<p>原因即form不能嵌套form。是由于浏览器解释产生。即浏览器解释后的HTML中会忽略内部嵌套的form</p>
+
+<p>浏览器解释后的HTML</p>
+
+<pre><code>                ipt1
+
+
+
+
+                ipt2
+
+
+
+
+
+
+
+
+
+
+
+
+                        inipt1
+
+
+
+
+                        inipt2
+</code></pre>
+
+<p>哦了，需要改方案了。BTW：也测试不用里面form的submit按钮提交，改用获取里面form对象后submit。不过由于浏览器解释后里面的form没有了，所以会undefined</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">kangjia</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-02T23:49:27+08:00" pubdate data-updated="true">2011-04-02 Sat</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/tech/'>tech</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kangjia.github.com/blog/2011/04/form-nest-test/" data-via="" data-counturl="http://kangjia.github.com/blog/2011/04/form-nest-test/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/03/vps-and-more/" title="Previous Post: VPS and more">&laquo; VPS and more</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/04/think-of-markting-request/" title="Next Post: 市场部需求之后的一些思考">市场部需求之后的一些思考 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/backbone-js-use-summary/">backbone.js使用小结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/jquery-data-method-bug/">jQuery data取值小坑</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/node-js-outline-view/">node.js速毁提纲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/mac_air-and-thinkpad_keyboard/">Mac Air和Thinkpad键盘</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/yestoday-and-tomorrow/">最近</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - kangjia -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

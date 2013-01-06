@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>康有才de胡说八道</title>
+  <meta name="author" content="kangjia">
+
+  
+  <meta name="description" content="VPS-爪控 博客放免费空间，免不了被墙的命，终于等到了VPS有货，和朋友一起拼了一个。然后就兴致冲冲装系统，加用户，分权限，装ftp。在这个过程中重复的shell命令，突然觉着这种手动控不是我的风格阿～～～仰天长啸 哪里有压迫，哪里就有google。搜了一下vps的面板，发现免费滴没几个。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kangjia.github.com/blog/page/3/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="康有才de胡说八道" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">康有才de胡说八道</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kangjia.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/03/vps-and-more/">VPS and More</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-30T06:44:11+08:00" pubdate data-updated="true">2011-03-30 Wed</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>VPS-爪控</strong></p>
+
+<p>博客放免费空间，免不了被墙的命，终于等到了VPS有货，和朋友一起拼了一个。然后就兴致冲冲装系统，加用户，分权限，装ftp。在这个过程中重复的shell命令，突然觉着这种手动控不是我的风格阿～～～仰天长啸</p>
+
+<p>哪里有压迫，哪里就有google。搜了一下vps的面板，发现免费滴没几个。选了kloxo，继续gg教程。差不多弄明白后才发现vpsyou提供了集成kloxo的OS。冏是一种习惯!- -。快速重装后，生活开始美好了。</p>
+
+<p><strong>VPS-使用</strong></p>
+
+<p>kloxo下把DNS模板填写后就开始分用户，为了以后方便，都选上了ssh。不过我在centos下木有找到sudoers文件，也没加上sudo权限。不管了，用户添加好后谁想开什么ftp，做什么站就随便了。kloxo需要apache,内存继续悲剧。期间想试试lnmp.org提供的一键包，不过木有好的人机交互就先放弃了。到这里，VPS可以提供的WWW、FTP、MAIL、MYSQL基础服务都有了，</p>
+
+<p><strong>VPS-VPN</strong></p>
+
+<p>VPS只做站，岂不是太对不起RMB了，想想自己也木有什么靠谱的VPN，又开始了搭梯子之旅。centos5.5下有人作了l2tp一键包，执行后就等着就是了。悲剧也进入到了高潮，我的ubuntu小本没找到l2tp连上的方式。算了，改天再去搭个openvpn的吧，另外有达人做了iptable，可以访问天朝的站不走VPN，有兴趣的童鞋可以GG一下，在googlecode开源了。BTW：买个VPS然后专门作VPN服务器去卖应该还能赚钱。白天用办公的电脑跑了一下VPN，梯子速度很给力哈。唉，还是花钱的好！</p>
+
+<p><strong>VPS-blog</strong></p>
+
+<p>kloxo下把站点配置好后，开始搬家之旅。centos都不带ftp客户端，不过想想可怜的内存，忍了，yum装上后，ftp到被墙的blog，wget回来zip包。然后翻墙去倒数据。改域名服务商的指向，一切很顺利的完成了搬家。<sup>_<sup>，终于不怕被墙了。</sup></sup></p>
+
+<p><strong>VPS and more</strong></p>
+
+<p>下午和老袁聊了一会儿，他对云貌似很感兴趣。听他讲也要转到SPD了，也不知道电信这不差钱的主会不会也使用虚拟化，也把主机作成多个VPS,充分利用下主机。不过我倒是觉着原来的BOSS用weblogic作web服务器，真是太奢侈也太浪费了。原来作BOSS作分层，还是分的不彻底。前端放个nginx，后面跟weblogic作业务容器效果应该也不错。最近也要多看看nginx，可以把这个VPS充分利用起来，试试能起几个应用。</p>
+
+<p><strong>VPS TODO</strong></p>
+
+<ul>
+<li><p>对kloxo调优，现在kloxo起一天基本就200M内存+了，研究下哪些服务可以关掉</p></li>
+<li><p>本地ubuntu折腾一下lnmp</p></li>
+<li><p>记得写blog</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/javascript-function-number-parseint-parsefloat/">学习JavaScript之Number、parseInt、parseFloat</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-15T08:40:22+08:00" pubdate data-updated="true">2011-02-15 Tue</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>Number()</strong></p>
+
+<p>Number函数可以转换任何数据类型，尝试转换整个value；</p>
+
+<ul>
+<li><p>Boolean值：true&#8211;>1，false&#8211;>0；</p></li>
+<li><p>null值：0；</p></li>
+<li><p>undefined：NaN；</p></li>
+<li><p>字符串：</p>
+
+<ul>
+<li><p>只有数字：十进制数值，去除前导0</p></li>
+<li><p>&#8220;&#8221;空字符串：0</p></li>
+<li><p>有效浮点数：浮点数值，去除前导0</p></li>
+<li><p>有效16进制（0x1F）：16进制数值</p></li>
+<li><p>其他字符串：NaN</p></li>
+</ul>
+</li>
+<li><p>数值：根据0、0x开头转换有效数值，去除前导0</p>
+
+<pre><code>console.log(Number(true));               //1    
+console.log(Number(null));              //0
+console.log(Number(undefined));         //NaN
+console.log(Number("000012"));              //12
+console.log(Number(000012));                //10
+//注意上两个去除前导0和进制问题。
+console.log(Number(""));                            //0
+console.log(Number("00.32"));                   //0.32              
+console.log(Number("17fuck world"));        //NaN
+console.log(Number(true));              //1         
+</code></pre></li>
+</ul>
+
+
+<p><strong>parseInt()</strong></p>
+
+<p>pareseInt函数会转换字符串成整数，规则如下</p>
+
+<ul>
+<li><p>非0数字或者负号开始字符串：转换有效十进制整数</p></li>
+<li><p>0开始数字:转换有效8进制整数</p></li>
+<li><p>0x开始数字:转换有效16进制整数</p></li>
+<li><p>其他开始字符串:NaN</p>
+
+<pre><code>console.log(parseInt("-3.4abc"));       //-3    
+console.log(parseInt("023.23"));        //19
+console.log(parseInt("0x23.23"));       //35
+console.log(parseInt("ab33"));              //NaN
+</code></pre></li>
+</ul>
+
+
+<p>parseInt(arg1,arg2)使用时注意使用第二个参数，表示进制</p>
+
+<p>BTW：arg1不是字符串时必须注意是有效数值！undefined、null、Boolean都为NaN</p>
+
+<pre><code>    console.log(parseInt(101,2));               //5
+    console.log(parseInt(101,8));               //65
+    console.log(parseInt(101,10));              //101
+    console.log(parseInt(101,16));              //257
+    //切记第二个参数哦，jinpu大神面试我的题目哇～～
+</code></pre>
+
+<p><strong>parseFloat()</strong></p>
+
+<p>parseFloat函数是转换字符串成浮点数函数，特性两个：</p>
+
+<ul>
+<li><p>parseFloat(str)解析是从str的index=0开始解析有效浮点数，遇到非有效浮点数停止解析</p></li>
+<li><p>忽略前导0</p>
+
+<pre><code>console.log(parseFloat("23.32.ab"));                //23.32
+console.log(parseFloat("0023.32.ab"));          //23.32
+console.log(parseFloat(23.32));             //23.32
+</code></pre></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/02/chrome-bug/">chrome诡异事件之document.write无效</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-02-14T03:09:15+08:00" pubdate data-updated="true">2011-02-14 Mon</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>背景</strong></p>
+
+<p>双联广告位在chrome下，会有第一次加载时右联不出现的情况，经查看，是右联的iframe没撑开导致的，在投放代码增加window.parent.ADManager.setIfrmHeight(&#8220;dlad_right&#8221;, 300); 后，依然没撑开。</p>
+
+<p><strong>投放代码</strong></p>
+
+<pre><code>try{
+    var leftAdContent = ""; //左边图片地址
+    var leftAdLink = "";//左边图片链接
+    var rightAdContent = "";//右边图片地址
+    var rightAdLink = "";//右边图片链接
+    var parentDocument = window.parent.document;
+    var leftAdPanel = parentDocument.getElementById("dlad_left").contentWindow.document;
+    leftAdPanel.body.innerHTML = ['&lt;a href="',leftAdLink,'" target="_blank"&gt;&lt;img src="',leftAdContent,'"&gt;&lt;/img&gt;&lt;/a&gt;'].join("");
+    window.parent.ADManager.setIfrmHeight("dlad_left", 300);
+    document.write(['&lt;a href="',rightAdLink,'" target="_blank"&gt;&lt;img src="',rightAdContent,'"&gt;&lt;/img&gt;&lt;/a&gt;'].join(""));
+    window.parent.ADManager.setIfrmHeight("dlad_right", 300); 
+}catch(e){} 
+</code></pre>
+
+<p>通过window.setInterval();增加log</p>
+
+<p><strong>log代码</strong></p>
+
+<pre><code>var otimer = null;
+try{
+    otimer=window.setInterval("console.log('--'+window.parent.document.getElementById('dlad_right').style.height);"  , 1);
+    var leftAdContent = ""; //左边图片地址
+    var leftAdLink = "";//左边图片链接
+    var rightAdContent = "";//右边图片地址
+    var rightAdLink = "";//右边图片链接
+    var parentDocument = window.parent.document;
+    var leftAdPanel = parentDocument.getElementById("dlad_left").contentWindow.document;
+    leftAdPanel.body.innerHTML = ['&lt;a href="',leftAdLink,'" target="_blank"&gt;&lt;img src="',leftAdContent,'"&gt;&lt;/img&gt;&lt;/a&gt;'].join("");
+    window.parent.ADManager.setIfrmHeight("dlad_left", 300);
+    document.write(['&lt;a href="',rightAdLink,'" target="_blank"&gt;&lt;img src="',rightAdContent,'"&gt;&lt;/img&gt;&lt;/a&gt;'].join(""));
+    window.parent.ADManager.setIfrmHeight("dlad_right", 300); 
+    console.log("**"+window.parent.document.getElementById("dlad_right").style.height);
+}catch(e){}        
+    setTimeout(function(){
+        window.clearInterval(otimer);
+    },300);
+</code></pre>
+
+<p><strong>log</strong></p>
+
+<ul>
+<li><p>**300px</p></li>
+<li><p>&#8211;300px</p></li>
+<li><p>&#8211;0px</p></li>
+<li><p>&#8211;0px</p></li>
+</ul>
+
+
+<p><strong>其他</strong></p>
+
+<p>如果设置间隔时间大于1 ms，就看不到&#8211;300px 这个log了。</p>
+
+<p>该问题在其他浏览器中没有这种情况，解决办法就是延迟设置iframe高度，即setTimeout(function(window.parent.ADManager.setIfrmHeight(&#8220;dlad_right&#8221;, 300);){},20);</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/after-setup-ubuntu/">安装ubuntu之后……碎碎念版</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-31T08:35:14+08:00" pubdate data-updated="true">2011-01-31 Mon</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>为了让自己是使用linux而不是装linux，所以把自己的硬盘格掉OS切换到ubuntu下了，并准备长期坚持单OS。作为ubuntu初哥，也将点滴记录，探讨并分享使用ubuntu作为桌面系统的可用性。当然，讨论背景是轻度游戏玩家，轻度唯*系统论者，轻度自由软件和版权捍卫者。</p>
+
+<p>按照普通作系统步骤，安装好系统后就是装驱动了。安装的系统为ubuntu 10.10，物理主机是tp x200，木有配置什么，除了蓝色浮点键盘不能使用，其他一切正常。蓝色浮点相当于鼠标中键，作为一个键盘控，没有中间作滚轮，是一件很纠结的事情，在google大神帮助下，安装Pointing devices，然后点击系统-首选项-Pointing devices-选中使用滚轮模拟-键值设置2-启用垂直滚动。然后就可以了。</p>
+
+<p>刚才说到安装Pointing devices，再说一下ubuntu怎么安装软件及安装哪些软件。ubuntu是通过apt-get方式安装软件的，也有GUI（软件中心），当然，也要配置源，突然觉着ubuntu安装软件特别像maven，通过配置依赖关系来下载。顺便吐槽一下linux各个发行版的乱七八糟的软件环境。当然，win作为商业软件，构建生态链也是他可持续发展的因素。好了，如果想知道怎么装软件，推荐<a href="http://forum.ubuntu.org.cn/viewforum.php?f=120">http://forum.ubuntu.org.cn/viewforum.php?f=120</a>学。</p>
+
+<p>还是说一下我的soft list吧。</p>
+
+<p>浏览器：chrome</p>
+
+<p>mail：我用chrome的插件，不过预装了Evolution</p>
+
+<p>下载：wget，amule。</p>
+
+<p>截屏工具：shutter(真木有QQ的ctrl+alt+a好用哇)</p>
+
+<p>ftp：Filezilla（win下也有，很好用的说）</p>
+
+<p>为啥木有介绍office和QQ捏？</p>
+
+<p>因为下面说的是vmware，可以安装virtualbox，不过使用virtualbox我遇到了内置摄像头启动不起来的问题。virtualbox如果使用USB设备，请参考<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=65&amp;t=151221">http://forum.ubuntu.org.cn/viewtopic.php?f=65&amp;t=151221</a></p>
+
+<p>虚拟机下安装个xp，然后安装office和tm。已经足够搭起来我的平时使用了。如果不用office，或者使用OOo之类的朋友及领导很多，也可以使用webQQ搞定了。别叨叨写这一段，我们使用电脑是为了生活，不是为了显摆滴。</p>
+
+<p>当然，除了虚拟机也可以使用wine，还是使用apt-get安装吧，官方已经1.3+了。安装好后至少你的win下的绿色软件都可以使用了。如果需要安装什么.dll或者软件包，使用winetricks安装即可。悲催的是我竟然用不了deepin-wine的几个软件。好吧，毛爷爷讲：自己动手，丰衣足食。</p>
+
+<p>除了通过虚拟机或者wine跑软件，其他ubuntu自带软件基本都满足我的需求了。这个时候需要介绍的就是面子工程了。</p>
+
+<p>list：</p>
+
+<p>ubuntu tweak</p>
+
+<p>awn</p>
+
+<p>compiz</p>
+
+<p>第一个可以设置compiz，启动3D效果，恩那，比acer要cool多了，第二个可以设置一个如同mac的启动栏。</p>
+
+<p>今天发现了一个好玩的软件，叫做ejecter。可以作为USB设备和外置设备的指示器小程。</p>
+
+<p>再推荐个好玩的站：<a href="http://wowubuntu.com/">http://wowubuntu.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/ability-outside-of-poems/">功夫在诗外-2010年总结</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-25T09:10:42+08:00" pubdate data-updated="true">2011-01-25 Tue</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>好吧，墨迹到一个月终究也是要写年终总结的。2011年已经来了，2012年还会远么？~
+又想按照工作、感情、生活、思想几个方面来写的，突然意识到程序员思想太严重了，总是结构化自己的文字，这样不美好。作为一个伪文艺青年，想到哪里写到哪里吧。</p>
+
+<p>一年基本都在北京，从做需求到带团队，然后支援北分，CRM分家后思考未来。中间还穿插着一些学习，系统学习了需求分析和OO设计。
+年末换了一份工作，从传统的行业软件sitech换到了互联网企业Qunar。说真的，挺舍不得sitech的。他的确教会我很多东西，也j结识了很多好朋友。其实这一年给自己压力挺大的，一开始就定的目标比较高，想把自己作一个从经验到方法的提升。而在这个过程中，也发现了很多问题，就开始给自己很大压力。事实上，形而上者是为道，形而下者是为器，而经验到方法提升的失败总结起来还是自己的经验不足。所以现在很淡定的在想，放低自己，学习积累经验。focus javascript，虽然好久没写代码了，重心也不是在这块，但是目前工作是这个，还是要好好的做好这块工作。</p>
+
+<p>Qunar的工作不算忙，但是有点乱。今天和大芮聊天，还说做一个需求的时候经常会乱掉思路。其实这个现象的本质还是没有输出，如果有完整的开发流程，开发其实并不需要太多的脑筋。当然，和一些老同事交流，许多事耗着耗着他们也觉着皮了。这种状况目前来看也是急不得的，任何事物都有自己的发展规律，我们只能顺势而为。目前定位是安安静静的跟着领导思路去作一些事情。</p>
+
+<p>昨天在想，今年怎么突然回到了思行合一的思路了。记得去年还总是对老妹说，男人，不止一面。可能是累了吧，即使是化学中元素频繁改变状态也是需要能量的，更何况人呢。或许许多事情都是从0到1然后再到0的吧，现象没变，思考确变了。今年话越来越少了，想的越来越多，这样很闷骚。比如在朋友联系上，的确作的不好。前两天还和为仓说应该定期组织一下活动。随着大家年龄的增长，话题确在减少，除了例行流程问候，应该考虑一些好玩的事情让大家参与起来。比如打牌之类的。</p>
+
+<p>昨天跟胖胖吵架了，其实本来我还是心存愧疚的，从冬天开始，我的确是越来越懒了。以至于到了饭来张口，衣来伸手的地步了。搞的胖胖发火也在情理之中。回头想想，我们一路走来俩人都挺不容易的，自己的确还是有些问题需要改进的。希望明年及以后我们都能完整的走下去。哦，显摆一下，胖胖可是给我从国外带回来了mido的手表哦。还是那个目标吧，互相帮助，共同进步。</p>
+
+<p>太晚了，不写了。希望11年我可以开心生活，开心工作吧。提一个可以量化的目标，考个需求分析师玩玩去。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/01/transfer-to-ubuntu/">Transfer to Ubuntu</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-01-22T11:06:38+08:00" pubdate data-updated="true">2011-01-22 Sat</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今日，做了一个灰常艰难的决定，决定把家里的小2从win7转向ubuntu。工作电脑还是win，毕竟要保证效率。好吧，生命不息，折腾不止！</p>
+
+<p>转移过程还是很辛苦的，小2没有光驱，懒得下10.10的镜像，只能用以前下的9.04的镜像，然后用ubuntu官方推荐的U盘安装方式（Universal USB Installer）进行安装。﻿现在一边上网瞎逛，一边升级系统ing。顺便感谢云输入法，若不然我码字也会码的很悲催的～</p>
+
+<p>虽然以前开发机是AIX和HPUNIX，但还是只略知*nix命令。这次转移，比用虚拟机霸道的多，必将在一段时间内我会凌风摇曳的。不过在格掉原来数据的时候心里竟然有一种放松感，莫非盗版用多了真的会有心里负担？</p>
+
+<p>新的开始，还是要感谢大环境，更多的app支持web/跨平台，更多的linux工程师的努力。明天升级系统后折腾一下常用软件，争取下午能用小2可以打游戏。额，太木有出息了。大不了再装虚拟机跑斗地主吧。</p>
+
+<p>PS：最近真的很能折腾,还有WP的编辑器要搞.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/11/leave-sitech/">Say Bye~</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-22T15:41:38+08:00" pubdate data-updated="true">2010-11-22 Mon</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>11月18日，兄弟们也开始赶赴深圳为新的战斗匆忙起来。而我，也匆匆办完手续，离开了这个奋斗了两年多的地方。<br/>
+真的还有些不舍，其实想做最后一场share作为自己的告别仪式，用来总结自己这两年多在sitech的技术，业务，产品方面收获。可惜team的兄弟们有的在安徽，有的在深圳，没能如愿。在这里写点东西，给sitech，也给自己。<br/>
+还是很感谢sitech，把自己从一个懵懂的学生，培养成了能单兵作战也能带队冲锋的电信IT战士。虽然会抱怨自己的生活如果放在洗衣机了甩一下，就只剩下加班和出差了；虽然开玩笑会讲sitech就是要死得起。但是也是在这种高强度的工作中，高饱和工作量中，才由量变带来了质变。也很感谢这两年来领导和同事的信任，让自己承担了全业务及后全业务（戏称擦屁股）的前端工作。也让自己对软件行业由简单的开发技术的认识到对开发效率，版本管控，需求分析以及团队建设、方法论等各方面的整体认识。当然，还有对电信业务的了解。这个很重要，至少知道了自己可以投诉到信产部~<br/>
+其实最重要的还是sitech文化的熏陶，学习，思考，创新，行动，改进，成功。对企业文化的认识的确是潜移默化的。sitech对review很看重，我们平时也经常讲要沉淀。一边赶路，一边回顾，最后才能有成熟的东西落地。sitech的环境有点像国企，很有人情味，氛围是我非常喜欢的。尤其是我们差不多一起做全业务的前端team，常常讲自己是从某个战壕里爬出来，又各自陷入不同新的战壕。<br/>
+当然，sitech作为一个高速成长的企业，从我进去的时候1000人不到到目前的小3000人，也有很多自身的问题。如果把做行业软件比作开出租车，技术是驾车本领，业务就是对路况了解。sitech可能也是更想做咨询吧，所以对路况看的太重。当然，也有其他问题，不过通过最近的规划看出sitech也在拥抱变化。还是很高兴自己能在sitech奋斗两年。<br/>
+如果不出去走走，就以为这里是全世界。因为个人原因选择了离开，在这里，希望sitech早日打过长江去，也希望留在或者已经离开sitech的CRM的兄弟们一路走好！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/11/think-sitech-product-from-360andqq/">从360和QQ到sitech产品</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-11-03T22:33:03+08:00" pubdate data-updated="true">2010-11-03 Wed</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>最近，某BSS落地省最近反映系统经常会出现session失效或者系统登录问题。前端同事做了很多排查，最后发现出现这些问题的集中在某一个地区，共性是都使用了360安全浏览器。最后确认为360安全浏览器的清理导致我们的ActiveX控件失效。在这里首先是我们系统的跨浏览器效果不理想，但是也想谈下360的产品理念：永远把用户当成白痴，提供一键支持。这种理念应该是一个比较流行的产品理念，我们做系统也在提倡这种思想，同时我们也要思考一下我们做系统的时候是不是真的理解了用户，理解了一键支持呢？一键支持是双刃剑，用好了提升了客户体验，用不好就是直接被秒掉了。 VPN也听好多同学说360报木马，据安全圈的朋友不是很官方的说法，360的杀毒策略有一种是手工白名单，对于没有认证的软件直接报木马，当然，如果您想认证您开发的软件，自然要交钱的。不管是不是真的吧。至少有两点可以聊聊：1、360的这种人力成本投入挺有意思，当技术成本贵的时候我们可以靠大规模的人力投入来达到一种平衡，这种方案真的是可持续发展的么？2、免费这个东西是真的么？对于360的盈利点，通过360导航引入的流量已经完全足够了，当然，还有白名单这些赢利点。我们公司的某些产品是否可以借鉴一下主体服务免费，增值服务收费的方式。<br/>
+360和QQ大战今天是一个高潮，也是大家津津乐道的事情。QQ的公开信写的真是太不给力了，当然，行为是太给力了！在南山法院和QQ弹窗的娇惯下，QQ的运营公关团队太差了，至少前几天的和360的大战中，舆论已经完全被360掌控，从QQ的一直在模仿，从未被超越到QQ在扫描用户资料等等，让大家对QQ已经想杀之而后快了。360的一贯作风是把对手的智商拉低到跟自己一个水平，然后用自己丰富的经验将对方打败，从360的各种公关稿可以看出，人家是真的用心做了！不管360此举的真正目的是推出IM还是什么，QQ早这么该这么威武了。单纯回到这件事情本身来讲：360出QQ保镖，完全涉及到知识产权问题，对使用QQ保镖的用户封杀无可厚非。就如同我们做的系统被第三方厂家以某种理由来修改一样，我们是坚决不干的！至于QQ有没有扫描我的东西，我没有证据，没什么好说的。聊完这些说下咱们的产品：移动互联网是我们公司的一个方向，比如BASD的网管产品，在这个陌生的行当中，对于产品、运营、推广、公关，我们准备好了么？我们是不是可以也模拟一下如果有某企业对我们某产品进行攻击，我们怎么办？</p>
+
+<p>呵呵，我是一个不明真相的群众，提了几个问题，希望有兴趣的同学一起探讨一下。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/10/build-a-team-and-team-building/">Build a Team and Team Building</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-10-31T21:42:53+08:00" pubdate data-updated="true">2010-10-31 Sun</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>柳爷讲管理总结为：“拉班子、定战略、带队伍”<br/>
+build a team可以理解为拉班子，team building可以理解为带队伍。<br/>
+一般成功的team应该在build team时是单例模式，team building是一个增量迭代，是维护build team为唯一的方法。<br/>
+但是在目前的IT行业，人才流失导致总是bt而不是在tb。柳爷只讲方法，不讲实施过程，很是遗憾。自己总结一下实践吧。<br/>
+关于tb可能关乎到人格魅力，气场等形而上的内容。但是关于bt，可谓器，是一个逻辑体系的工作，也就是说应该比较容易形成工具化的内容可以复用借鉴。<br/>
+TB实施：1、建设有结构的team，结构尽量简单清晰。用unix哲学讲就是模块化。典型结构：二叉树，让team更像二叉树。再小的team也要有结构。有结构特征了就让team中的每个人知道自己下一个node在哪里，有目标的工作了。<br/>
+2、让每个人有对应职责。当结构梳理出来后，对于工作边界就划分清楚了，在有目标的工作后也有内容的工作了。最好也启用一下AB备份，但是一件事的责任人一定要唯一。<br/>
+3、制度管人，流程管事。这点就是怎么价值最大化？用思维导图的方法来讲一下，制度：周例会或者晨会，工具包括：todolist，GTD等。流程：各种process的instance。还有KPI，SOP，该上的都上吧。<br/>
+4、信任。不解释~</p>
+
+<p>PS：其实本来想研究一下为什么在不停的build team 而不是team building。tb可谓之为道，真没什么经验，也写不来，就聊点行而下吧。关于tb欢迎拍砖或者指导！</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2010/08/thoughts-on-night/">夜，不黑</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-08-05T02:02:33+08:00" pubdate data-updated="true">2010-08-05 Thu</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>下午在纠缠垃圾数据的时候就想写点什么，还好并没有由逻辑性思维向发散性思维转换，至少保证了数据依然垃圾着，采集程序依然问题着，工作项目依然凌乱着。终于夜了，却没有静下来，还是有灯光坚持着。这个城市如同躺在手术台上，还是没有打麻药就被按在了手术台上，漆黑的背景下炽光闪耀，没有一丝平静。<br/>
+早上，朋友说天色就跟一个孩子要哭了似的，终于在说过不久，天开始哭了。感谢一天的小雨，至少空气有了青草的闻到，至少现在的还算凉爽，让我们原谅夜的叫嚣。两年&#8230;是应该写点东西了&#8230;当我有这种想法的时候，我就知道外边肯定是传来了机器声，让我不能真正醉心在自由蔓延的文字中，却去想在某一里程碑有总结性文档输出了。如果夜真的能如同一只小船被包裹在海洋中，最多只能听到风声，或许我就能真的一边和风吟唱，一边梦到自己如同树根一样无序的发散着，发散到有些黯淡的星星旁边。<br/>
+不喜欢在美好的夜也控制自己的思维，虽然此前一直在想两年前甚至多年前到今天我没变的是什么，比如我那双从东边到西边，从南边到北边的帆布鞋。虽然就在刚才我还一直在看以前的那些认识或者已经不认识的朋友的文字和照片，去寻找一些我曾经的痕迹。当我现在回头去想看过的223路牌照片时，却想到的是震天的红色座椅和我曾经在上面写过并删除过的文字；却想到去川人川的那个巷子口，好像很多次从223下车后就直奔进去。但是记不起来走进去后的巷子是什么样的了。<br/>
+倚在窗前，看到成片的房子已经模糊了，灯光是规则状的横竖交织。就那么看着，不知道在看着什么那样看着，不用去寻找此刻发声的一切，静静的感觉。夜，不黑，视觉上已经开始安静了。<br/>
+突然想点一支烟，来怀念自己片刻的安宁。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/12/backbone-js-use-summary/">backbone.js使用小结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/jquery-data-method-bug/">jQuery data取值小坑</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/11/node-js-outline-view/">node.js速毁提纲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/10/mac_air-and-thinkpad_keyboard/">Mac Air和Thinkpad键盘</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/08/yestoday-and-tomorrow/">最近</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - kangjia -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

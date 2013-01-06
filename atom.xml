@@ -1,0 +1,1100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[康有才de胡说八道]]></title>
+  <link href="http://kangjia.github.com/atom.xml" rel="self"/>
+  <link href="http://kangjia.github.com/"/>
+  <updated>2013-01-07T00:04:17+08:00</updated>
+  <id>http://kangjia.github.com/</id>
+  <author>
+    <name><![CDATA[kangjia]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[backbone.js使用小结]]></title>
+    <link href="http://kangjia.github.com/blog/2012/12/backbone-js-use-summary/"/>
+    <updated>2012-12-07T02:14:44+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/12/backbone-js-use-summary</id>
+    <content type="html"><![CDATA[<h1>BackBone.js</h1>
+
+<p>BackBone.js 继承了undercore的集合、数组辅助方法；继承events对象，支持自定义事件和事件命名空间；支持自定义选择器；支持自定义模板引擎的一个MVC框架。</p>
+
+<p>提供了如下三个对象：</p>
+
+<ul>
+<li><p>Router 负责监听URL变化，是app入口，作有状态的controller</p></li>
+<li><p>View 负责渲染，监听/处理浏览器事件；对外提供渲染行为/事件行为接口</p></li>
+<li><p>Model/Collection 负责处理模型数据和后端数据交互，对外提供数据处理API</p></li>
+<li><p>调用顺序:
+<code>R-&gt;V-&gt;M</code>
+<code>R-&gt;V R-&gt;M</code></p></li>
+</ul>
+
+
+<h2>Router</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>routes</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>View</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>el</p></li>
+<li><p>events</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p><code>click .abc : funName</code></p>
+
+<ul>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>render</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Model</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>urlRoot</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>get</p></li>
+<li><p>set</p></li>
+<li><p>save</p></li>
+<li><p>destory</p></li>
+<li><p>fetch</p></li>
+<li><p>parse</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Collection</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>model</p></li>
+<li><p>url</p></li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>fetch</p></li>
+<li><p>get</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>其他</h2>
+
+<h6>bind 太弱了，只有bind , unbind , trigger 。 小心循环绑定事件。</h6>
+
+<h6>用户操作是放在view的events里处理，还是放在router里的routes处理比较迷惑。</h6>
+
+<pre><code>目前是需要记录状态的都丢到routes里处理了。 
+</code></pre>
+
+<h6>调用流程是在R里生成V和M的实例，然后调用？还是直接调用V的实例，在V的构造里去生成M的实例？</h6>
+
+<h6>不同的M或者V之间调用缺少消息中间层，怎么处理才能方便模块加载卸载？</h6>
+
+<pre><code>目前是直接通过一个message对象来处理，有点丑陋。 
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery data取值小坑]]></title>
+    <link href="http://kangjia.github.com/blog/2012/12/jquery-data-method-bug/"/>
+    <updated>2012-12-03T21:23:10+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/12/jquery-data-method-bug</id>
+    <content type="html"><![CDATA[<p>开发中经常需要在DOM上绑定数据，类似于</p>
+
+<pre><code>   &lt;li class="active" data-id="xxx"&gt;&lt;/li&gt;
+</code></pre>
+
+<p>然后使用jQuery的data函数去取。</p>
+
+<pre><code>$("li.active").data("id");
+</code></pre>
+
+<p>但是当data-id的数据为数字组成的字符串，会出现问题，比如&#8221;01234&#8221;，会变成&#8221;1234&#8221;
+查看了jQuery下源码，如下：</p>
+
+<pre><code>function dataAttr( elem, key, data ) {
+    // If nothing was found internally, try to fetch any
+    // data from the HTML5 data-* attribute
+    if ( data === undefined &amp;&amp; elem.nodeType === 1 ) {
+
+        var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+
+        data = elem.getAttribute( name );
+
+        if ( typeof data === "string" ) {
+            try {
+                data = data === "true" ? true :
+                data === "false" ? false :
+                data === "null" ? null :
+                jQuery.isNumeric( data ) ? +data :
+                    rbrace.test( data ) ? jQuery.parseJSON( data ) :
+                    data;
+            } catch( e ) {}
+
+            // Make sure we set the data so it isn't changed later
+            jQuery.data( elem, key, data );
+
+        } else {
+            data = undefined;
+        }
+    }
+
+    return data;
+}
+</code></pre>
+
+<p>jQuery会处理data的值</p>
+
+<pre><code>jQuery.isNumeric( data ) ? +data 
+</code></pre>
+
+<p>所以在取uuid之类的值时，尽量使用$(el).atrr(&#8220;data-id&#8221;);</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[node.js速毁提纲]]></title>
+    <link href="http://kangjia.github.com/blog/2012/11/node-js-outline-view/"/>
+    <updated>2012-11-04T20:45:18+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/11/node-js-outline-view</id>
+    <content type="html"><![CDATA[<h3>简介</h3>
+
+<p>基于v8引擎的，可运行于server端的javascript</p>
+
+<h3>安装使用</h3>
+
+<p>http://nodejs.org</p>
+
+<h3>语法</h3>
+
+<p>ECMAScript5</p>
+
+<h3>包机制</h3>
+
+<p>require(&#8220;&#8221;)</p>
+
+<h3>内置数据类型</h3>
+
+<p>跟javascript一样…</p>
+
+<h3>API</h3>
+
+<ul>
+<li><p>fs</p></li>
+<li><p>http</p></li>
+<li><p>process</p></li>
+<li><p>Events</p></li>
+</ul>
+
+
+<h3>事件驱动 异步IO</h3>
+
+<ul>
+<li><p>Events</p></li>
+<li><p>callback</p></li>
+</ul>
+
+
+<h3>异常、调试、IDE</h3>
+
+<p>webstorm</p>
+
+<h3>advanced</h3>
+
+<ul>
+<li><p>npm</p></li>
+<li><p>web</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac Air和Thinkpad键盘]]></title>
+    <link href="http://kangjia.github.com/blog/2012/10/mac_air-and-thinkpad_keyboard/"/>
+    <updated>2012-10-18T22:29:08+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/10/mac_air-and-thinkpad_keyboard</id>
+    <content type="html"><![CDATA[<p>        纤薄的Mac Air和皮实的Thinkpad的trackpoint键盘是很不搭的东西，至少颜色就是一个土鳖黑，一个是洁白银。缘由是实在受不了air的无键程无反馈键盘，入手了凸显浓郁的屌丝气息的TP trackpoint键盘。敲击着噼噼啪啪的时候，忍不住看看air的充满人性关怀的触摸板，一阵不舍。抚摸键盘，自言自语到：小红帽也是神器。折腾许久，还是没搞定键盘自带中键的问题。</p>
+
+<p>        最后的结果是在全手指操作中，如果只用air，超薄键盘的虐手想要自杀；如果只用trackpoint键盘，没有人性化的上下翻页。索性将trackpoint键盘摆在左边，air放在右边，伸手即可使用触摸板了。虽然有些别扭，但是也是顺了个其所长。</p>
+
+<p>        想起了以前和朋友玩游戏，选择门派时总是左右为难，各个门派都有明显的缺陷，当然也有明显的特长。纠结很久后总是说如果有一个门派能集各家之长多好。当然，这是不可能的，游戏要讲平衡，现实也要讲规则。后来和朋友开始计算哪些门派配合后的攻防敏法封最合适，开始琢磨了配合，发挥各自所长。</p>
+
+<p>        圣经说上帝造人后怕那人孤独，又抽取了那人的肋骨造了女人。男人从一出生，据说即要找寻自己缺失的那一部分。一路跌跌撞撞，有的找到了，而有的往往总是找了跟自己相像的一个。完美的意思应该是可合作，而不是独优秀。</p>
+
+<p>        早上上班有时和老婆一起去挤地铁。一般车子到了西二旗，可能会有座位。一个人时，总是很轻松的坐上去，两个人在一起时，必然会左顾右盼，希望越大，失望越大，最后还是继续站着聊天。虽然会落不着座位休息一会儿，但是一路有人伴左右也是别有一番意思。当然，合作的必然结果还是效率降低，总是有失有得。</p>
+
+<p>        据说人成熟的标志之一是接受不完美。容忍、接受，然后再继续探寻。可能Air的键盘会有机械键盘的手感，trackpoint键盘也会有合适的驱动和人性化的触摸板。也可能是慢慢适应了一种新的操作。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[最近]]></title>
+    <link href="http://kangjia.github.com/blog/2012/08/yestoday-and-tomorrow/"/>
+    <updated>2012-08-28T23:03:42+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/08/yestoday-and-tomorrow</id>
+    <content type="html"><![CDATA[<p>最近拍了婚纱照，好累。</p>
+
+<p>最近身体不太好，要休养。</p>
+
+<p>最近看了一本小说：《球星闪电》。</p>
+
+<p>最近看了一个源码，backbone。有没看懂的地方。</p>
+
+<p>最近在学CSS，能简单布局了，会用photoshop拼图了。</p>
+
+<p>最近在看一门语言，python。该看模块了。目前为止很合我这个纠结症病人的胃口。</p>
+
+<p>最近做了俩次红娘，也没继续跟踪结果。</p>
+
+<p>最近准备试试美股。</p>
+
+<p>最近一直在家吃饭，很喜欢。要感谢老婆和妹妹。</p>
+
+<p>&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-华丽的分割线&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;-</p>
+
+<p>发现，自己越来越习惯和电脑沟通，越来越不善于和人类沟通了。</p>
+
+<p>所以，继续看python。</p>
+
+<p>读一下seajs的源码。</p>
+
+<p>要学习一下object-c，至少能看懂。</p>
+
+<p>学习写nodejs，把wow完成。</p>
+
+<p>把《乌合之众》读完。</p>
+
+<p>哦，还要举办婚礼。10.4号  ～_～</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[关于读书]]></title>
+    <link href="http://kangjia.github.com/blog/2012/06/about-read-book/"/>
+    <updated>2012-06-11T05:32:58+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/06/about-read-book</id>
+    <content type="html"><![CDATA[<p>老婆问我：为什么你连看电视的时候都抱着一本书？
+答曰：高中时，一朋友数学成绩特别好。我请教学习之道。朋友说他喜欢一个姑娘，但是姑娘的数学不好。他为了能靠近姑娘，只好拼命学习数学。
+老婆警惕的又问：你喜欢谁家的姑娘了？
+坦白之：我喜欢上了装逼！</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[svn merge]]></title>
+    <link href="http://kangjia.github.com/blog/2012/06/svn-merge/"/>
+    <updated>2012-06-01T05:48:52+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/06/svn-merge</id>
+    <content type="html"><![CDATA[<p>最近在折腾svn及开发流程相关的东西。在分支-开发-合并的模型下，merge成了家常便饭。</p>
+
+<p>记两个原来没用过的命令</p>
+
+<p><strong>1.</strong></p>
+
+<pre><code>svn mergeinfo $from $to --show-revs merged
+</code></pre>
+
+<p>查看从分支$from merge到 $to的合并历史</p>
+
+<pre><code>svn mergeinfo $from $to --show-revs eligible
+</code></pre>
+
+<p>查看从分支$from merge到 $to的未合并版本</p>
+
+<p>使用场景：并行开发时，进入测试前，或者发布前，检测是否从trunk做了合并，确保代码安全</p>
+
+<p><strong>2.</strong></p>
+
+<pre><code>svn merge --reintegrate $trunk
+</code></pre>
+
+<p>提交branch的修改到trunk</p>
+
+<p>使用场景：并行开发时，发布后，将发布内容同步更新到trunk</p>
+
+<p>根据svn mergeinfo写了个node的check程序，https://gist.github.com/2843516
+不会写svn钩子，如果会可以做集成检测了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[mac app list]]></title>
+    <link href="http://kangjia.github.com/blog/2012/05/mac-app-list/"/>
+    <updated>2012-05-13T23:16:59+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/05/mac-app-list</id>
+    <content type="html"><![CDATA[<p>小黑在夏天开始罢工几次后，终于忍不住收了个air。还好原来经常折腾*unix系统，经过一天努力，基本可以在mac下干活了。
+简单记录一下所使用的软件。
+所使用软件的原则有两个：
+1.我不是什么圣人，也会用盗版，但是原则还是能买的就自己买，不能买的就尽量使用free（我一直觉着free不是免费的，而是自由的意思。）
+2.能用原生用原生，尽量少定制，少装重复软件，少配置，方便迁移。</p>
+
+<p>办公：
+1.原生mail
+2.ical+googlecalendar
+3.evernote
+4.office2011 ！盗版！如果PM都用wiki，我真的可以放弃word了..
+5.skitch
+6.有道词典
+7.sougou输入法</p>
+
+<p>互联网：
+1.chrome
+2.filezilla
+3.thunder
+4.QQ</p>
+
+<p>开发：
+1.sublime text2（共享版，会提示购买，注册版59$，考虑团购ing）
+2.firefox+firebug+dnsflusher
+3.xcode（为了安装brew）
+4.git
+5.svnx
+6.vim（vimrc和bashrc都丢到了github）
+7.nodejs
+8.nginx(记得配置path)
+9.brew install svn1.7 (mv /usr/bin中原有的svn东西)
+10.seashore</p>
+
+<p>工具：
+1.appcleaner
+2.cccleaner
+3.spotlight
+4.totalterminal
+5.cinch（窗口放大，free版，提示注册，注册版45￥。）
+6.finderpath（俩功能：一个是拿path，一个是快速调用terminal我有用）</p>
+
+<p>几个网址：
+http://wbond.net/sublime_packages/community
+https://github.com/kangjia/env</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[团队建设总结]]></title>
+    <link href="http://kangjia.github.com/blog/2012/04/team-building-summary/"/>
+    <updated>2012-04-07T08:14:23+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/04/team-building-summary</id>
+    <content type="html"><![CDATA[<pre><code> 首先说一下背景：团队是小团队，技术团队，人数10人以下。其次这个团队也是一个结构化团队，各种背景的同学都有，不像以前是同级生型团队。
+
+
+
+
+
+ 团队人员从少到多，在这个过程中，我们团队的同学逐渐暴露的问题也如同大部分技术团队一致：  
+
+ 1.和其他部门合作过程中沟通出现问题。  
+
+ 2.工作目标不明确，工作效率不高。
+
+
+
+
+
+
+
+
+
+
+
+ 为了处理这两个问题，和同学们进行充分沟通，把问题细化后分为以下几方面进行建设。（不是一起执行，也是边走边改。）
+
+
+
+
+
+
+
+
+
+
+
+**1.明确宣贯团队目标**
+
+
+
+
+
+目标：无加班，无delay！每个人都有成长，并且有成长的输出。
+
+
+
+
+
+**2.解决沟通问题**
+
+
+
+
+
+2.1流程制定，把我作为PM方面沟通工作统一接口。
+
+
+
+
+
+2.2和上下游搞好关系，明确各种流程，强调大家严格执行流程。
+
+
+
+
+
+2.3明确与其他技术部门沟通要素：快速制定接口，主动推进。遇到沟通问题，速度升级。
+
+
+
+
+
+**3.营造轻松快乐工作氛围。**
+
+
+
+
+
+3.1组建rtx群，及时解决大家各种问题，尽量快乐工作。
+
+
+
+
+
+3.2组织读书分享和整个部门的团队活动。
+
+
+
+
+
+**4.增强信任感和团队感**
+
+
+
+
+
+4.1承担重点工作，加强自测，输出靠谱代码，给合作部门增加信任感，增加话语权。
+
+
+
+
+
+4.2陪同同学加班发布，随时支持他们的工作，增强团队之间信任感。
+
+
+
+
+
+**5.工作任务可控化**
+
+
+
+
+
+5.1统一任务出口，所有任务由我为出口，尽量把任务的问题在我这个环节控制住。
+
+
+
+
+
+5.2执行工作日报，随时监控预警风险。
+
+
+
+
+
+
+
+
+
+
+
+在这些实践中，一直真心实意的的，很信任和同学们进行谈心，了解他们的想法，尽量争取最多的支持让他们做自己有兴趣的东西。
+
+
+
+
+
+在这个过程中，上述内容执行中，也遇到了一些问题。
+
+
+
+
+
+比如：把更多的沟通工作放我这边了，有同学就会遇到沟通问题就上升到我这里，形成了依赖。所以执行中也做了微调，鼓励大家在目标明确、风险可控的情况下，进行主动自己处理。
+
+
+
+
+
+还有一个很大的问题是：有时候团队个人目标和公司目标不是足够match的时候，我也只能充当说客，说服大家尽量先满足公司目标。坦白的讲：这个问题出现的本质是我没有对一些事情的方向掌控好。
+
+
+
+
+
+
+
+
+    最后一个问题是没做好未来结构化组织的基础搭建。虽然扁平化是我喜欢的，但是会让同学们的职业规划感觉不到期望或者下一个位置在哪里。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+在不到半年的持续努力下，虽然离有足够输出和成长还有距离，但是我们整个团队的执行力得到了提升，至少解决了大部分问题，整个团队可以比较流畅的run起来了。
+
+
+
+
+
+
+
+
+
+
+
+**"不管是做产品、做管理，不要去违背人性"** -----引用一个很尊敬的同学的话作为结束，也作为以后自己工作的指导。
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[离职]]></title>
+    <link href="http://kangjia.github.com/blog/2012/03/leave-qunar/"/>
+    <updated>2012-03-31T06:35:37+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/03/leave-qunar</id>
+    <content type="html"><![CDATA[<pre><code>   今天算离职的事情公布了，剩下的也都是扫尾工作和走离职流程了。
+    加盟Qunar到现在，一年半了，不长不短。有欢乐，有基友，有争吵，就如同任何一个公司，有好的，也有不好的。借此之际，也做一下总结。
+    从入职Qunar在各个频道打杂，到全职团购频道，再到组建团购前端团队支持团购、度假等频道工作。还是很感谢领导的包容和支持！
+    从前端门外汉到半瓶水，非常感谢这个过程中金埔给了我足够宽松的时间学习和折腾。
+    从一个人死磕到各个新同学的加盟。而且我的团队从无到有，事情从乱到顺，产出越来越好。这一切都是在浩浩给我足够的时间下、各个同学的支持下才能做到的。
+    回头一看，无论是个人还是团队，这一切也的确是很有成就感的。尤其是2012Q1的事情都一步一步在落实。
+
+    突然下笔无言了，不一一点名煽情了。下面大家的任务还很重，各位加油吧。
+    说点开心的，下面我的重心都是我大喜的事情了。在这个人生只有一次的机会上，我将全力出演！
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[碎片时间管理]]></title>
+    <link href="http://kangjia.github.com/blog/2012/03/manage-fragmented-time/"/>
+    <updated>2012-03-20T07:34:06+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/03/manage-fragmented-time</id>
+    <content type="html"><![CDATA[<p>项目并行，团队新同学多，部门沟通、临时任务等背景下，导致最近半年碎片时间增多，经常做着做着一个事情，就会被打断。
+这种情况下会出现以下几个问题：
+1、回顾任务的上下文时间多，处理任务的效率下降。
+2、处理任务并行多时，会有遗忘的事情。
+3、没有时间回顾沉淀，忙忙碌碌一天，回头一看却记不得做了什么。
+4、碎片时间增多，导致惰性增加，会用碎片时间做工作以外的事情。
+5、有强迫症潜质，稍有空闲就开始刷邮件和IM，确认是否有信息遗漏。</p>
+
+<p>坦白的说，目前也没有完全改善以上情况。
+简单谈一下自己的感受和处理方法：
+1.梳理自己的效率曲线，把时间块比较大的工作放到早上或者晚上做。避免任务不停切换导致回顾任务的上下文时间增多。
+2.对于10分钟以内的事情优先处理。避免任务积累过多。
+3.利用todolist &amp;&amp; gtd工具。把重要事情记下来。作为同步控，目前选择是google calendar + ervernote。
+4.主动切割时间。把固定任务，比如排期、周会、项目review排期。让临时任务（比如需求review）都经过预约进入队列。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[聊聊米聊]]></title>
+    <link href="http://kangjia.github.com/blog/2012/02/talk-about-miliao/"/>
+    <updated>2012-02-20T09:45:31+08:00</updated>
+    <id>http://kangjia.github.com/blog/2012/02/talk-about-miliao</id>
+    <content type="html"><![CDATA[<p><strong>背景：</strong></p>
+
+<p>半年前，一个好友在做WEB米聊，虽然没用过米聊，还是跟他扯淡怎么增加用户量，
+说不能提供扯淡和约炮服务的IM都是耍流氓。
+半年后，终于在胁迫下，试用了一下这个高科技。也聊一下自己的认识和感受。</p>
+
+<p><strong>认识：</strong></p>
+
+<p>米聊，基于手机通讯录移动IM工具.据说是copy的国外kiki，
+其实应该更早的应该是whatsapp。当然，Live（MSN）、飞信也有这些功能。
+暂且不管原型是谁，也不讨论各个软件的细节对比。作为一款新型的IM工具，
+尤其是在国内有QQ这座大山的压力之下。
+首要解决的问题就是如何迅速构建足量用户及用户关系。手机通讯录解决了这个问题。
+这的确是一招好棋，或许这也是米聊一直声称要打造熟人社交的PR台词。
+但是现实是智能手机用户量不足，米聊装机量也一般，咱也没有飞信这种背景。
+作为一个移动IM/SNS，本质讲是服务。
+做GIF，做优化交互，做语音，做涂鸦这些功能很好。
+但是如果总用户量不足，必然用户关系不足，就解决不了用户通信的基本诉求。</p>
+
+<p>尽管米聊PR又说，我们的目标是提供足够好的体验留下使用米聊的用户。
+其实可以理解为，我们会为用户增加更多的关系存在。</p>
+
+<p>所以本质是一个问题：如何增加用户关系？
+结果是：
+1.让不用米聊的用户用米聊。
+2.让用米聊的用户构建关系。
+（如果米聊的目标是为了一部分用户服务，走慢公司路线，第二条足矣。但是米聊的目标定位显然比这大）</p>
+
+<p>那方法呢？
+从目前的米聊（惭愧的说没有足够机子看所有平台的，所以只能拿IOS来说了）功能来看，
+米世界是为了让米聊用户构建关系而产生的方法。
+附近的人和握手、求缘猫、真心话等功能都是增加新的关系。
+通过这些功能发现咱也不管什么熟人生人了，毕竟生人也可以变成熟人嘛，社交的目的就是这个哈。</p>
+
+<p>小米手机（不确认是不是绑定安装）是解决让不用米聊用户用米聊的一个方法。
+当然，还有导入各种联系人，邮件邀请，广告，渠道推广，媒体宣传等各种方法。</p>
+
+<p>还有其他方法么？
+1.其实米聊一直强调的是移动社交产品，社交除了关系以外是什么？
+内容（媒体？资讯？社交，随便什么名词吧）！
+看看开心，再看看豆瓣就了了。
+其实也可以理解米聊的米世界为内容，但是除了热点，大部分的内容都是米聊是生产者，用户是消费者。
+在这种模式下，只有不停的加新功能，那么，那么你懂得。。。
+用户制造内容，内容产生关系，关系又产生内容的良性互动是一种方法。产品形式？
+广播貌似想做这块。但是UGC的产出率大家都懂的。热点也是可以产出UGC，不过活跃度太低了。
+运营引导，不行就上水手。</p>
+
+<p>2.垂直&amp;&amp;开放？
+YY可谓传奇，在IM竞争这么激烈的市场，也能杀出来一条血路，方法就是垂直。
+米聊也可以，找垂直点，能做自己做，不能做就开放服务，和UC合作，和凡客合作。
+都是一个迅速产生用户和用户关系的一种方法。</p>
+
+<p>基本原则还是用户为王，就跟澡堂子似，池子不够大，谁能来呢。。
+好了，以上都是形而上的胡说八道。来点形而下的吐槽吧。</p>
+
+<p><strong>感受：</strong></p>
+
+<p>1.槽点
+1、米聊客户端太重，曾经的一个版本38M+，至少我感觉亚历山大。
+2、UI的不统一，整体风格还好。热点的二级导航是奇怪的屎黄色；
+米世界的各种图标更是冷暖色搭配；查找更多人又用了靓丽的绿色。
+3、附近的用户整体感觉比微信好，但是比《遇见》的地图模式差很多。
+4、面包屑严重缺失，我经常不知道进到了哪里，然后还返回不回来，只能用toolbar回来。
+5、状态！！！显示我在线，那么我怎么隐身，怎么离线，怎么自动回复？
+好吧，我受QQ毒害太深，可是用户习惯是有继承的。
+6、我的好友的首屏竟然是“米聊小助手”，“微博小助手”，“附近小助手”。
+这都是啥么东东？你们加个track，看用户能用到多少？
+7、握手的握手和附近的人的收藏（五角星是收藏吧？）只有正操作，尼玛反操作呢？
+8、联系人显示号码？有啥用？搜索用号码是可以，但是我想没几枚奇葩会记得住别人的号码吧？</p>
+
+<p>2.横向产品
+微信：其实到无谓了，丫这么大，目标反而不清晰了。毕竟移动社交都是在尝试，大家起跑线差不多。
+陌陌：人小众，玩的是还是陌生人，困难比米聊还大。
+遇见：上手度高，解决陌生人用户需求很给力，盈利模式已经有了。很不错。
+新浪微博：介个东东内容产生足够，用户关系也充分，问题和微信一致。而且有微博自身属性的牵制。
+人人：!- - 不是他的用户，没办法对比。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[host、nginx管理脚本]]></title>
+    <link href="http://kangjia.github.com/blog/2011/11/host-nginx-manage-shell/"/>
+    <updated>2011-11-21T22:31:27+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/11/host-nginx-manage-shell</id>
+    <content type="html"><![CDATA[<p>作为苦逼程序员，开发的时候经常改host，经常改nginx config ，还要经常重启nginx。
+作为一个命令控，极其受不了在不同的文件夹里来回切换。
+重拾bat脚本，写了个常用的脚本来打开host、nginx_conf和启动nginx。
+很简单，也没做测试，可能有bug。不过可以拿这个作为base version来丰富了。</p>
+
+<pre><code>cls
+@echo off
+goto menu
+:menu
+cls
+echo. 1 修改host
+echo. 2 修改nginx
+echo. 3 启动nginx
+echo. 4 重启nginx
+echo. 5 关闭nginx
+echo. 请输入序号
+set /p id=
+if "%id%" == "1" goto host
+if "%id%" == "2" goto nconf
+if "%id%" == "3" goto nstart
+if "%id%" == "4" goto nreload
+if "%id%" == "5" goto nstop
+pause
+
+:host
+gvim c:windowssystem32driversetchosts
+pause
+goto menu
+
+:nconf
+gvim "D:Program Filesnginx-1.0.10confnginx.conf"
+pause
+goto menu
+
+:nstart
+d:
+cd "D:Program Filesnginx-1.0.10"
+start nginx
+pause
+goto menu
+
+:nreload
+taskkill /f /im nginx.exe &gt;nul
+goto nstart
+
+:nstop
+taskkill /f /im nginx.exe &gt;nul
+pause
+goto menu
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[centos增加sudo用户脚本]]></title>
+    <link href="http://kangjia.github.com/blog/2011/10/centos-add-sudo-user/"/>
+    <updated>2011-10-30T09:26:04+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/10/centos-add-sudo-user</id>
+    <content type="html"><![CDATA[<p>1、添加用户组dev:：</p>
+
+<pre><code>groupadd dev
+</code></pre>
+
+<p>2、增加dev用户租sudo权限：
+编辑soduers: vim /etc/soduers 在%wheel下面加 %dev ****
+3、shell增加用户 shell如下：</p>
+
+<pre><code>#!/bin/bash
+useradd $1 -g dev -G root -m -p $2
+echo $1:$2|chpasswd
+pwconv
+</code></pre>
+
+<p>挺简单的，方便自己玩VPS用的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[DOM相关的俩个坑]]></title>
+    <link href="http://kangjia.github.com/blog/2011/08/dom-bug/"/>
+    <updated>2011-08-09T01:47:40+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/08/dom-bug</id>
+    <content type="html"><![CDATA[<h2>1、IE中图片有白色噪点。</h2>
+
+<p>背景：运营童鞋发现轮播效果在IE下时，IE图片有白色噪点，导致图片视觉效果不好。问了team的各位重构师，木有人知道咋回事。初步怀疑运营图片压缩导致的。可是wget下来图片是正常的。</p>
+
+<p>gg之，使用filter做渐变透明效果时，IE6下会有噪点。</p>
+
+<pre><code>FILTER:alpha(opacity=100)
+</code></pre>
+
+<p>仔细排查了代码，的确是使用jquery.animate时使用了opacity效果。</p>
+
+<pre><code>eg: var imagesPlay = function(next) { jQuery(".team_images li";).eq(imgListCurr).css({"opacity":"0.5&amp;"}).animate({"left":"-480px","opacity":"1";},...
+</code></pre>
+
+<p>解决：去掉了opacity效果。有童鞋说如果是png或者gif的图片做幻灯片不会有噪点，未做尝试，有效果滴同学可以回复一下。</p>
+
+<h2>2、HTML5的iframe问题</h2>
+
+<p>背景：既然一直声称技术驱动型公司，那我们就上HTML5开刀吧。重构童鞋很给力的用了1天时间把大部分标签都换上了HTML5。</p>
+
+<p>杯具：由于页面上有banner是使用iframe做的。切HTML5后，在banner无内容是，无论对iframe高度如何设置，都会显示一块空白。去查了一下文档，iframe标签在HTML5变成了块元素，不支持height属性了。</p>
+
+<p>解决：iframe内无内容时display=&#8217;none&#8217;来防止开天窗了。</p>
+
+<p>吐槽：HTML5标准，在W3C酝酿了这么多年后，浏览器厂商还是很难达成统一，是不是也有对向下兼容支持不力的原因呢？</p>
+
+<p>补记：一童鞋用设置iframe中的font-hight为0也搞定了，未试验。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[吉隆坡到热浪岛旅游攻略（2011-07-19）]]></title>
+    <link href="http://kangjia.github.com/blog/2011/07/kl-redang-trip/"/>
+    <updated>2011-07-20T00:42:23+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/07/kl-redang-trip</id>
+    <content type="html"><![CDATA[<p><strong>先介绍一下背景：</strong></p>
+
+<p>第一次出国玩，热浪岛在中国南海边，主要景点和娱乐项目是：夏日麽麽茶的拍摄地，浮浅，晒太阳，看海龟。</p>
+
+<p><strong>词典：</strong></p>
+
+<p>KUALA Terengganu - 丁加奴（热浪岛所属市，有机场），也翻译成登嘉楼</p>
+
+<p>KUALA Lumpur - 吉隆坡 （简称 KL）</p>
+
+<p>LCCT ： 亚航廉价机场</p>
+
+<p>Redang Island - 热浪岛</p>
+
+<p>RM - 马币，和人民币差不多2.1:1的汇率</p>
+
+<p>Sari Pacifica - 热浪岛莎莉酒店，很安静，有泳池，离拉古娜步行10分钟。</p>
+
+<p>Laguna - 拉古娜酒店，夏日麽麽茶拍摄地，很热闹，晚上有演出</p>
+
+<p>Redang Beach - 沙滩酒店，靠近拉古娜，附近有很多吃饭的地方和小酒店，提供中文服务。往返丁加奴停船的地方</p>
+
+<p>Berjaya - 柏家雅酒店，有港口，有私人机场（有木有很奢侈？），在另外一片海滩。</p>
+
+<p>税费服务费 - 马来一般价格都是不带税的，最后交的钱是要+10%的服务费和6%的税的。</p>
+
+<p>手机信号 - 拉古难这边有基站，所以sari那边信号很差</p>
+
+<p>dive center - 潜水中心，酒店都自带，也可以去专门的dive center去询价。</p>
+
+<p><strong>我的足迹：</strong></p>
+
+<p>我是从<a href="http://www.qunar.com">www.qunar.com</a>买的北京到吉隆坡的马航往返，连税费3K2。好吧，这是广告，自己家网站的广告。</p>
+
+<p>从吉隆坡到丁加奴买的亚航的中午航班，因为买的太晚，单程俩人最后支付了394RM，亚航机票在国内只能用双币信用卡购买。然后在sari官网订的只包早餐的花园别墅三天两夜套餐，税后1100RM了。- - 好贵…还好没选海景别墅，那个更贵。不过sari环境还是很好的。</p>
+
+<p>亚航飞机从LCCT起飞，自主check in，建议穿的清凉点，安检都会忽视你，吉隆坡到丁加奴飞机50分钟。从丁加奴机场可以买taxi票，到港口差不多25RM，这里，特别提醒：<strong>可以在机场找人share taxi。最好找欧美人，国人好像不太习惯拼车</strong>。</p>
+
+<p>另外建议先打车到唐人街（china town），买一些日用品，比如防晒霜！！从唐人街到港口步行10分钟，朝<strong>登嘉楼海南会馆</strong>那个建筑方向走，临到前的路口左转，直走。买票去热浪岛，一人55RM，买票的时候要报酒店名称。<strong>切记：最后一班快艇的时间是下午3点。</strong>一定要早点赶到。</p>
+
+<p>热浪岛会有泊船从快艇接下来，然后到沙滩酒店处上岸，各家酒店的拖拉机就会接人了。sari安静的原因就显出来了，我去的时候人家拖拉机都满满的人，sari就接了4个…在酒店办checkin，这时候会有waiter送上来一杯冷饮，很好喝。然后入驻后就可以去海边玩了。<strong>sari只有大厅和餐厅有wifi覆盖</strong>。</p>
+
+<p>潜水，直接去的sari的dive center去问的，一个人70RM，是浮浅。sari的人比较少，是和redang holiday酒店拼船去的，上船比较刺激，穿着救生衣就下水了，举着拖鞋上小木船。<strong>去浮浅的时候一定要听清楚master说的步骤，有问题及时沟通，反正你问的多了，他就对你关注多了，你的安全就有保证了。</strong>小船走了20分钟吧，绕到岛的另一侧，停下来，这里就是传说中的海洋公园。好了，下水，带浮浅镜，仔细看美丽的小鱼和珊瑚吧，很是享受。</p>
+
+<p>晒太阳，沙滩上放了好多躺椅，擦了防晒睡一下午，有海风吹着，很是放松心情。醒来再来一个新鲜的椰子，乐不思蜀啊。</p>
+
+<p>laguna旁边有一个小木屋，就是拍夏日麽麽茶的地方，现在作为gift shop，有兴趣的可以看看，我是觉着价格和国内宰人的景点相比，还算可以。</p>
+
+<p>休息了两天，早上吃自助早餐，然后checkout。在大厅上网，10点坐拖拉机去beach等船回丁加奴。从港口上岸后一直turn left可以找到bus station。能赶上1点发车回KL的大巴，8点到KL，下车就是马来西亚大学，旁边有小地铁。也可以打车，<strong>在吉隆坡打车要砍价</strong>，他们不打表，拦腰砍吧。</p>
+
+<p>如果时间充足，可以试试SPA，不过都是蛮贵的说，一个人1小时要200RM+。不过我还是很后悔没有尝试一下马来的马莎吉。</p>
+
+<p><strong>一点总结</strong>：</p>
+
+<p>1、银子足够，就直接选berjaya的双飞套餐吧，从吉隆坡到热浪岛直飞。一个人1200RM，包食宿了和潜水。单买beryaja的房子还是很贵的。</p>
+
+<p>2、省钱玩就<a href="http://www.redang.org"><strong>www.redang.org</strong></a>中选一家小点的酒店，选3Day2Night不包食宿的，一个人300Rm就搞定了，吃饭在岛上找餐厅吃，一个人一顿饭10RM就能吃到河粉炒饭之类的，还有中文服务。潜水一个人80RM，算下来还是很便宜的。晚上可以去laguna看表演吃烧烤。</p>
+
+<p>3、省心省钱套餐，喜欢热闹预定laguna的3D2N的套餐，选全包，有食宿，有潜水。喜欢安静的选sari的套餐。<strong>不过要laguna的要早些预定 </strong>。这两家套餐都选标准间就行，毕竟是玩，选海景、花园别墅都挺浪费的。价格是laguna一个人500RM左右，sari的稍微贵一些。如果选的不是全包食宿的套餐，记得吃饭自己去吃，酒店的自助餐太贵了，每顿都要50RM+。</p>
+
+<p>4、有得拼的地方记得拼，比如在丁加奴打的，比如单人去玩的拼房。不过热浪岛除了吃饭、住宿、潜水，其他都不需要花钱，你可以不用着急做什么，晒太阳和游泳就可以了。</p>
+
+<p>5、能确定好旅行的，尽早预定亚航的特价机票，平均一个人100RM以内就能搞定了。如果时间足够，也可以坐大巴返回吉隆坡，一个人40RM，双层大巴，还是很豪华的。<strong>每天上午最后一班为1:00pm</strong>，晚上9点半开始半个小时一班。</p>
+
+<p>6、<strong>热浪岛酒店有小虫和蚂蚁之类的，最好带风油精之类的</strong>。反正我是看到了蜥蜴，有怕的自己多注意，就在沙滩玩吧，别去后面的山上。</p>
+
+<p>不知道拉下什么没写没，redang还是很凉快的度假胜地。这次旅行运气还不错，亚航飞机没订做，排座在最后一排。大巴是在二层第一排，有了很多观光的机会。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[坑爹的window7自带分区工具]]></title>
+    <link href="http://kangjia.github.com/blog/2011/07/some-bug-in-window7-install-ubuntu/"/>
+    <updated>2011-07-10T07:37:38+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/07/some-bug-in-window7-install-ubuntu</id>
+    <content type="html"><![CDATA[<p>作为一个轻度命令行控，把win7下安装cygwin已经不能让我完全满足了。反正现在硬盘也大，做个硬盘双系统成了必然选择。</p>
+
+<p>硬盘安装ubuntu的两种方法：</p>
+
+<p>1、wubi。</p>
+
+<p>2、修改启动项，利用grup4dos或者easybcd安装。</p>
+
+<p>对于2.网上有详尽的教程。比如：</p>
+
+<p>http://letgoof.me/2011/install-ubuntu-11-04-from-harddisk-under-windows7/</p>
+
+<p>好了，说重点：一般在使用window的时候，硬盘已经分区完毕了，这个时候只能从某个逻辑分区找补出来一些空间。</p>
+
+<p>在win7下，恐怕很多童鞋会喜欢使用win7自带的磁盘工具进行压缩分区，但是，这里有个问题。如果是通过磁盘压缩后，</p>
+
+<p>会坑爹的出现分区表错误。尤其是想使用压缩后的空间进行安装ubuntu。无论是wubi还是双系统。都会出现挂载错误问题。</p>
+
+<p>1、wubi会报找不到根目录。</p>
+
+<p>2、硬盘安装会出现挂载问题，找不到你的分区。</p>
+
+<p>在linux下使用 sudo fdisk -lu，就会发现使用win7自带的分区工具压缩出来的分区Blocks竟然木有变？木有变！尼码有木有，有木有这么坑爹的啊！</p>
+
+<p>**遇到以上问题的童鞋请注意：使用靠谱的分区工具进行分区空间调整吧。</p>
+
+<pre><code>**
+</code></pre>
+
+<p>比如harddisk gen2010，或者PQ之类的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[酒后歌]]></title>
+    <link href="http://kangjia.github.com/blog/2011/05/drink-song/"/>
+    <updated>2011-05-08T13:01:23+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/05/drink-song</id>
+    <content type="html"><![CDATA[<p>神州多共战，今日天涯散。</p>
+
+<p>再尽一杯酒，不知是何年！</p>
+
+<p>@&#8211;siteh|CRM 08级同学小聚后</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[市场部需求之后的一些思考]]></title>
+    <link href="http://kangjia.github.com/blog/2011/04/think-of-markting-request/"/>
+    <updated>2011-04-15T05:59:56+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/04/think-of-markting-request</id>
+    <content type="html"><![CDATA[<h5>项目人员结构问题</h5>
+
+<p>市场部需求项目的开发是我和立鹏，虽然不是我第一次做项目了，但松哥和浩姐都很关心，从开始的时间评估和设计开发部分都给了很多指导性意见，也一直在进度方面跟着。但是在这过程中出现了几次反复，后面会提。现在思考一下，问题的原因是项目人员结构的特别。</p>
+
+<p>一般项目的人员结构应该是线性或者梯形的。但是这次我的汇报关系是一对多，在我对这个需求把握不准的时候会得到多个意见，而我自身能力有限的情况下就导致了对于项目的推进阻碍。希望以后的项目人员结构应该是线性或者梯形的结构。并且最好一个项目的负责人唯一，也方便整体推进和协调。</p>
+
+<h5>概设or详设问题</h5>
+
+<p>设计部分，我的确经验欠缺，另外依照以前的经验，该部分应该为概要设计，是按照问题域划分、对象划分、对象中业务元素梳理、业务规则整理、业务流程等步骤进行设计。详细设计应该为编码阶段进行的。不过这块浩姐的建议应该是做详细设计，应该关系到业务细则。</p>
+
+<p>这个时间阶段是进行概设和详设是有争议的，最后的按照浩姐的方法是成功的，但是也遗留了一些细则型业务在开发中并未实现的问题。其实无论那种方法，最后得到我们完整的实现是一致的目标。我这该阶段最大的问题是没有把设计落实到文字中。项目不在小，有文档则清楚！</p>
+
+<h5>主动性问题</h5>
+
+<p>首先要自我批评，因为做这个需求一开始对自己的定位是主要负责配合立鹏开发，所以前期对整个项目的推进并没有贡献，在Qtest的问题上也是立鹏不提我也没进行跟进。最后在项目期限临近、压力越来越大的时候，开始思考自己问题出在了哪里，也进行了一定的改进。因为一直对今年的规划是多实践，多积累，多提高自己的技术能力来更好完成工作，所以思想出了问题，不太愿意去做非技术性的东西，主动性严重缺失！</p>
+
+<p>调整心态，改进主动性问题，以后做项目我会主动沟通的。另外也需要思考怎么对项目进行整体推进。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[form嵌套问题]]></title>
+    <link href="http://kangjia.github.com/blog/2011/04/form-nest-test/"/>
+    <updated>2011-04-02T23:49:27+08:00</updated>
+    <id>http://kangjia.github.com/blog/2011/04/form-nest-test</id>
+    <content type="html"><![CDATA[<p><strong>背景</strong></p>
+
+<p>因为要做一个组件提供市场部与其他网站合作使用，所以需要一段HTML，其实有一个功能是提交到Qunar的接口。考虑通过form提交来实现接口交互。为了防止市场部将HTML代码粘贴到其他网站的form中，保证提交市场部的HTML代码健壮，特别测试了如果出现form嵌套的情况</p>
+
+<p>测试代码</p>
+
+<p>HTML1：</p>
+
+<pre><code>                ipt1
+
+
+
+
+                ipt2
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        inipt1
+
+
+
+
+                        inipt2
+</code></pre>
+
+<p>HTML2</p>
+
+<h3>FORM提交内容:</h3>
+
+<h1></h1>
+
+<p>HTML3</p>
+
+<h3>FORM提交内容:</h3>
+
+<h1></h1>
+
+<p><strong>测试结果</strong></p>
+
+<p>经测试，提交的地址是外边的form的action。即form嵌套form的时候，会提交最外边的form</p>
+
+<p>原因即form不能嵌套form。是由于浏览器解释产生。即浏览器解释后的HTML中会忽略内部嵌套的form</p>
+
+<p>浏览器解释后的HTML</p>
+
+<pre><code>                ipt1
+
+
+
+
+                ipt2
+
+
+
+
+
+
+
+
+
+
+
+
+                        inipt1
+
+
+
+
+                        inipt2
+</code></pre>
+
+<p>哦了，需要改方案了。BTW：也测试不用里面form的submit按钮提交，改用获取里面form对象后submit。不过由于浏览器解释后里面的form没有了，所以会undefined</p>
+]]></content>
+  </entry>
+  
+</feed>
