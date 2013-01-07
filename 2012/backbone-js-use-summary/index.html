@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>backbone.js使用小结 - 康有才de胡说八道</title>
+  <meta name="author" content="kangjia">
+
+  
+  <meta name="description" content="BackBone.js BackBone.js 继承了undercore的集合、数组辅助方法；继承events对象，支持自定义事件和事件命名空间；支持自定义选择器；支持自定义模板引擎的一个MVC框架。 提供了如下三个对象： Router 负责监听URL变化，是app入口， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kangjia.github.com/2012/backbone-js-use-summary/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="康有才de胡说八道" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div id="logo">
+  	<div id="logoLeft">{</div>
+  	<div id="logoText">mob</div>
+  	<div id="logoRight">}</div>
+  	<div class="clear"></div>
+  </div>
+  <h1><a href="/">康有才de胡说八道</a></h1>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kangjia.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">backbone.js使用小结</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T02:14:44+08:00" pubdate data-updated="true">2012-12-07 Fri</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>BackBone.js</h1>
+
+<p>BackBone.js 继承了undercore的集合、数组辅助方法；继承events对象，支持自定义事件和事件命名空间；支持自定义选择器；支持自定义模板引擎的一个MVC框架。</p>
+
+<p>提供了如下三个对象：</p>
+
+<ul>
+<li><p>Router 负责监听URL变化，是app入口，作有状态的controller</p></li>
+<li><p>View 负责渲染，监听/处理浏览器事件；对外提供渲染行为/事件行为接口</p></li>
+<li><p>Model/Collection 负责处理模型数据和后端数据交互，对外提供数据处理API</p></li>
+<li><p>调用顺序:
+<code>R-&gt;V-&gt;M</code>
+<code>R-&gt;V R-&gt;M</code></p></li>
+</ul>
+
+
+<h2>Router</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>routes</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>View</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>el</p></li>
+<li><p>events</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p><code>click .abc : funName</code></p>
+
+<ul>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>render</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Model</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>urlRoot</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>get</p></li>
+<li><p>set</p></li>
+<li><p>save</p></li>
+<li><p>destory</p></li>
+<li><p>fetch</p></li>
+<li><p>parse</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Collection</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>model</p></li>
+<li><p>url</p></li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>fetch</p></li>
+<li><p>get</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>其他</h2>
+
+<h6>bind 太弱了，只有bind , unbind , trigger 。 小心循环绑定事件。</h6>
+
+<h6>用户操作是放在view的events里处理，还是放在router里的routes处理比较迷惑。</h6>
+
+<pre><code>目前是需要记录状态的都丢到routes里处理了。 
+</code></pre>
+
+<h6>调用流程是在R里生成V和M的实例，然后调用？还是直接调用V的实例，在V的构造里去生成M的实例？</h6>
+
+<h6>不同的M或者V之间调用缺少消息中间层，怎么处理才能方便模块加载卸载？</h6>
+
+<pre><code>目前是直接通过一个message对象来处理，有点丑陋。 
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">kangjia</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-07T02:14:44+08:00" pubdate data-updated="true">2012-12-07 Fri</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/tech/'>tech</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kangjia.github.com/2012/backbone-js-use-summary/" data-via="" data-counturl="http://kangjia.github.com/2012/backbone-js-use-summary/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/2012/jquery-data-method-bug/" title="Previous Post: jQuery data取值小坑">&laquo; jQuery data取值小坑</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/backbone-js-use-summary/">backbone.js使用小结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/jquery-data-method-bug/">jQuery data取值小坑</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/node-js-outline-view/">node.js速毁提纲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/mac_air-and-thinkpad_keyboard/">Mac Air和Thinkpad键盘</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/yestoday-and-tomorrow/">最近</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - kangjia -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kangjia';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kangjia.github.com/2012/backbone-js-use-summary/';
+        var disqus_url = 'http://kangjia.github.com/2012/backbone-js-use-summary/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

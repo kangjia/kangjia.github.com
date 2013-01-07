@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech | 康有才de胡说八道]]></title>
   <link href="http://kangjia.github.com/categories/tech/atom.xml" rel="self"/>
   <link href="http://kangjia.github.com/"/>
-  <updated>2013-01-08T00:22:56+08:00</updated>
+  <updated>2013-01-08T00:27:45+08:00</updated>
   <id>http://kangjia.github.com/</id>
   <author>
     <name><![CDATA[kangjia]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[backbone.js使用小结]]></title>
-    <link href="http://kangjia.github.com/backbone-js-use-summary/"/>
+    <link href="http://kangjia.github.com/2012/backbone-js-use-summary/"/>
     <updated>2012-12-07T02:14:44+08:00</updated>
-    <id>http://kangjia.github.com/backbone-js-use-summary</id>
+    <id>http://kangjia.github.com/2012/backbone-js-use-summary</id>
     <content type="html"><![CDATA[<h1>BackBone.js</h1>
 
 <p>BackBone.js 继承了undercore的集合、数组辅助方法；继承events对象，支持自定义事件和事件命名空间；支持自定义选择器；支持自定义模板引擎的一个MVC框架。</p>
@@ -147,9 +147,9 @@
   
   <entry>
     <title type="html"><![CDATA[jQuery data取值小坑]]></title>
-    <link href="http://kangjia.github.com/jquery-data-method-bug/"/>
+    <link href="http://kangjia.github.com/2012/jquery-data-method-bug/"/>
     <updated>2012-12-03T21:23:10+08:00</updated>
-    <id>http://kangjia.github.com/jquery-data-method-bug</id>
+    <id>http://kangjia.github.com/2012/jquery-data-method-bug</id>
     <content type="html"><![CDATA[<p>开发中经常需要在DOM上绑定数据，类似于</p>
 
 <pre><code>   &lt;li class="active" data-id="xxx"&gt;&lt;/li&gt;
@@ -205,9 +205,9 @@
   
   <entry>
     <title type="html"><![CDATA[node.js速毁提纲]]></title>
-    <link href="http://kangjia.github.com/node-js-outline-view/"/>
+    <link href="http://kangjia.github.com/2012/node-js-outline-view/"/>
     <updated>2012-11-04T20:45:18+08:00</updated>
-    <id>http://kangjia.github.com/node-js-outline-view</id>
+    <id>http://kangjia.github.com/2012/node-js-outline-view</id>
     <content type="html"><![CDATA[<h3>简介</h3>
 
 <p>基于v8引擎的，可运行于server端的javascript</p>
@@ -262,9 +262,9 @@
   
   <entry>
     <title type="html"><![CDATA[svn merge]]></title>
-    <link href="http://kangjia.github.com/svn-merge/"/>
+    <link href="http://kangjia.github.com/2012/svn-merge/"/>
     <updated>2012-06-01T05:48:52+08:00</updated>
-    <id>http://kangjia.github.com/svn-merge</id>
+    <id>http://kangjia.github.com/2012/svn-merge</id>
     <content type="html"><![CDATA[<p>最近在折腾svn及开发流程相关的东西。在分支-开发-合并的模型下，merge成了家常便饭。</p>
 
 <p>记两个原来没用过的命令</p>
@@ -299,9 +299,9 @@
   
   <entry>
     <title type="html"><![CDATA[mac app list]]></title>
-    <link href="http://kangjia.github.com/mac-app-list/"/>
+    <link href="http://kangjia.github.com/2012/mac-app-list/"/>
     <updated>2012-05-13T23:16:59+08:00</updated>
-    <id>http://kangjia.github.com/mac-app-list</id>
+    <id>http://kangjia.github.com/2012/mac-app-list</id>
     <content type="html"><![CDATA[<p>小黑在夏天开始罢工几次后，终于忍不住收了个air。还好原来经常折腾*unix系统，经过一天努力，基本可以在mac下干活了。
 简单记录一下所使用的软件。
 所使用软件的原则有两个：
