@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: tech | 康有才de胡说八道]]></title>
+  <link href="http://kangjia.github.com/categories/tech/atom.xml" rel="self"/>
+  <link href="http://kangjia.github.com/"/>
+  <updated>2013-01-08T00:22:56+08:00</updated>
+  <id>http://kangjia.github.com/</id>
+  <author>
+    <name><![CDATA[kangjia]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[backbone.js使用小结]]></title>
+    <link href="http://kangjia.github.com/backbone-js-use-summary/"/>
+    <updated>2012-12-07T02:14:44+08:00</updated>
+    <id>http://kangjia.github.com/backbone-js-use-summary</id>
+    <content type="html"><![CDATA[<h1>BackBone.js</h1>
+
+<p>BackBone.js 继承了undercore的集合、数组辅助方法；继承events对象，支持自定义事件和事件命名空间；支持自定义选择器；支持自定义模板引擎的一个MVC框架。</p>
+
+<p>提供了如下三个对象：</p>
+
+<ul>
+<li><p>Router 负责监听URL变化，是app入口，作有状态的controller</p></li>
+<li><p>View 负责渲染，监听/处理浏览器事件；对外提供渲染行为/事件行为接口</p></li>
+<li><p>Model/Collection 负责处理模型数据和后端数据交互，对外提供数据处理API</p></li>
+<li><p>调用顺序:
+<code>R-&gt;V-&gt;M</code>
+<code>R-&gt;V R-&gt;M</code></p></li>
+</ul>
+
+
+<h2>Router</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>routes</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>View</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>el</p></li>
+<li><p>events</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p><code>click .abc : funName</code></p>
+
+<ul>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>render</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Model</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li>urlRoot</li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>get</p></li>
+<li><p>set</p></li>
+<li><p>save</p></li>
+<li><p>destory</p></li>
+<li><p>fetch</p></li>
+<li><p>parse</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Collection</h2>
+
+<ul>
+<li><p>属性</p>
+
+<ul>
+<li><p>model</p></li>
+<li><p>url</p></li>
+</ul>
+</li>
+<li><p>方法</p>
+
+<ul>
+<li><p>initialize</p></li>
+<li><p>fetch</p></li>
+<li><p>get</p></li>
+<li><p><em>事件方法</em></p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>其他</h2>
+
+<h6>bind 太弱了，只有bind , unbind , trigger 。 小心循环绑定事件。</h6>
+
+<h6>用户操作是放在view的events里处理，还是放在router里的routes处理比较迷惑。</h6>
+
+<pre><code>目前是需要记录状态的都丢到routes里处理了。 
+</code></pre>
+
+<h6>调用流程是在R里生成V和M的实例，然后调用？还是直接调用V的实例，在V的构造里去生成M的实例？</h6>
+
+<h6>不同的M或者V之间调用缺少消息中间层，怎么处理才能方便模块加载卸载？</h6>
+
+<pre><code>目前是直接通过一个message对象来处理，有点丑陋。 
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[jQuery data取值小坑]]></title>
+    <link href="http://kangjia.github.com/jquery-data-method-bug/"/>
+    <updated>2012-12-03T21:23:10+08:00</updated>
+    <id>http://kangjia.github.com/jquery-data-method-bug</id>
+    <content type="html"><![CDATA[<p>开发中经常需要在DOM上绑定数据，类似于</p>
+
+<pre><code>   &lt;li class="active" data-id="xxx"&gt;&lt;/li&gt;
+</code></pre>
+
+<p>然后使用jQuery的data函数去取。</p>
+
+<pre><code>$("li.active").data("id");
+</code></pre>
+
+<p>但是当data-id的数据为数字组成的字符串，会出现问题，比如"01234"，会变成"1234"
+查看了jQuery下源码，如下：</p>
+
+<pre><code>function dataAttr( elem, key, data ) {
+    // If nothing was found internally, try to fetch any
+    // data from the HTML5 data-* attribute
+    if ( data === undefined &amp;&amp; elem.nodeType === 1 ) {
+
+        var name = "data-" + key.replace( rmultiDash, "-$1" ).toLowerCase();
+
+        data = elem.getAttribute( name );
+
+        if ( typeof data === "string" ) {
+            try {
+                data = data === "true" ? true :
+                data === "false" ? false :
+                data === "null" ? null :
+                jQuery.isNumeric( data ) ? +data :
+                    rbrace.test( data ) ? jQuery.parseJSON( data ) :
+                    data;
+            } catch( e ) {}
+
+            // Make sure we set the data so it isn't changed later
+            jQuery.data( elem, key, data );
+
+        } else {
+            data = undefined;
+        }
+    }
+
+    return data;
+}
+</code></pre>
+
+<p>jQuery会处理data的值</p>
+
+<pre><code>jQuery.isNumeric( data ) ? +data 
+</code></pre>
+
+<p>所以在取uuid之类的值时，尽量使用$(el).atrr("data-id");</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[node.js速毁提纲]]></title>
+    <link href="http://kangjia.github.com/node-js-outline-view/"/>
+    <updated>2012-11-04T20:45:18+08:00</updated>
+    <id>http://kangjia.github.com/node-js-outline-view</id>
+    <content type="html"><![CDATA[<h3>简介</h3>
+
+<p>基于v8引擎的，可运行于server端的javascript</p>
+
+<h3>安装使用</h3>
+
+<p>http://nodejs.org</p>
+
+<h3>语法</h3>
+
+<p>ECMAScript5</p>
+
+<h3>包机制</h3>
+
+<p>require("")</p>
+
+<h3>内置数据类型</h3>
+
+<p>跟javascript一样…</p>
+
+<h3>API</h3>
+
+<ul>
+<li><p>fs</p></li>
+<li><p>http</p></li>
+<li><p>process</p></li>
+<li><p>Events</p></li>
+</ul>
+
+
+<h3>事件驱动 异步IO</h3>
+
+<ul>
+<li><p>Events</p></li>
+<li><p>callback</p></li>
+</ul>
+
+
+<h3>异常、调试、IDE</h3>
+
+<p>webstorm</p>
+
+<h3>advanced</h3>
+
+<ul>
+<li><p>npm</p></li>
+<li><p>web</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[svn merge]]></title>
+    <link href="http://kangjia.github.com/svn-merge/"/>
+    <updated>2012-06-01T05:48:52+08:00</updated>
+    <id>http://kangjia.github.com/svn-merge</id>
+    <content type="html"><![CDATA[<p>最近在折腾svn及开发流程相关的东西。在分支-开发-合并的模型下，merge成了家常便饭。</p>
+
+<p>记两个原来没用过的命令</p>
+
+<p><strong>1.</strong></p>
+
+<pre><code>svn mergeinfo $from $to --show-revs merged
+</code></pre>
+
+<p>查看从分支$from merge到 $to的合并历史</p>
+
+<pre><code>svn mergeinfo $from $to --show-revs eligible
+</code></pre>
+
+<p>查看从分支$from merge到 $to的未合并版本</p>
+
+<p>使用场景：并行开发时，进入测试前，或者发布前，检测是否从trunk做了合并，确保代码安全</p>
+
+<p><strong>2.</strong></p>
+
+<pre><code>svn merge --reintegrate $trunk
+</code></pre>
+
+<p>提交branch的修改到trunk</p>
+
+<p>使用场景：并行开发时，发布后，将发布内容同步更新到trunk</p>
+
+<p>根据svn mergeinfo写了个node的check程序，https://gist.github.com/2843516
+不会写svn钩子，如果会可以做集成检测了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[mac app list]]></title>
+    <link href="http://kangjia.github.com/mac-app-list/"/>
+    <updated>2012-05-13T23:16:59+08:00</updated>
+    <id>http://kangjia.github.com/mac-app-list</id>
+    <content type="html"><![CDATA[<p>小黑在夏天开始罢工几次后，终于忍不住收了个air。还好原来经常折腾*unix系统，经过一天努力，基本可以在mac下干活了。
+简单记录一下所使用的软件。
+所使用软件的原则有两个：
+1.我不是什么圣人，也会用盗版，但是原则还是能买的就自己买，不能买的就尽量使用free（我一直觉着free不是免费的，而是自由的意思。）
+2.能用原生用原生，尽量少定制，少装重复软件，少配置，方便迁移。</p>
+
+<p>办公：
+1.原生mail
+2.ical+googlecalendar
+3.evernote
+4.office2011 ！盗版！如果PM都用wiki，我真的可以放弃word了..
+5.skitch
+6.有道词典
+7.sougou输入法</p>
+
+<p>互联网：
+1.chrome
+2.filezilla
+3.thunder
+4.QQ</p>
+
+<p>开发：
+1.sublime text2（共享版，会提示购买，注册版59$，考虑团购ing）
+2.firefox+firebug+dnsflusher
+3.xcode（为了安装brew）
+4.git
+5.svnx
+6.vim（vimrc和bashrc都丢到了github）
+7.nodejs
+8.nginx(记得配置path)
+9.brew install svn1.7 (mv /usr/bin中原有的svn东西)
+10.seashore</p>
+
+<p>工具：
+1.appcleaner
+2.cccleaner
+3.spotlight
+4.totalterminal
+5.cinch（窗口放大，free版，提示注册，注册版45￥。）
+6.finderpath（俩功能：一个是拿path，一个是快速调用terminal我有用）</p>
+
+<p>几个网址：
+http://wbond.net/sublime_packages/community
+https://github.com/kangjia/env</p>
+]]></content>
+  </entry>
+  
+</feed>

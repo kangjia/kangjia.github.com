@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DOM相关的俩个坑 - 康有才de胡说八道</title>
+  <meta name="author" content="kangjia">
+
+  
+  <meta name="description" content="1、IE中图片有白色噪点。 背景：运营童鞋发现轮播效果在IE下时，IE图片有白色噪点，导致图片视觉效果不好。问了team的各位重构师，木有人知道咋回事。初步怀疑运营图片压缩导致的。可是wget下来图片是正常的。 gg之，使用filter做渐变透明效果时，IE6下会有噪点。 FILTER:alpha &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://kangjia.github.com/dom-bug/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="康有才de胡说八道" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div id="logo">
+  	<div id="logoLeft">{</div>
+  	<div id="logoText">mob</div>
+  	<div id="logoRight">}</div>
+  	<div class="clear"></div>
+  </div>
+  <h1><a href="/">康有才de胡说八道</a></h1>
+  
+  <div class="clear"></div>
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:kangjia.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      
+        <h1 class="entry-title">DOM相关的俩个坑</h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-09T01:47:40+08:00" pubdate data-updated="true">2011-08-09 Tue</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>1、IE中图片有白色噪点。</h2>
+
+<p>背景：运营童鞋发现轮播效果在IE下时，IE图片有白色噪点，导致图片视觉效果不好。问了team的各位重构师，木有人知道咋回事。初步怀疑运营图片压缩导致的。可是wget下来图片是正常的。</p>
+
+<p>gg之，使用filter做渐变透明效果时，IE6下会有噪点。</p>
+
+<pre><code>FILTER:alpha(opacity=100)
+</code></pre>
+
+<p>仔细排查了代码，的确是使用jquery.animate时使用了opacity效果。</p>
+
+<pre><code>eg: var imagesPlay = function(next) { jQuery(".team_images li";).eq(imgListCurr).css({"opacity":"0.5&amp;"}).animate({"left":"-480px","opacity":"1";},...
+</code></pre>
+
+<p>解决：去掉了opacity效果。有童鞋说如果是png或者gif的图片做幻灯片不会有噪点，未做尝试，有效果滴同学可以回复一下。</p>
+
+<h2>2、HTML5的iframe问题</h2>
+
+<p>背景：既然一直声称技术驱动型公司，那我们就上HTML5开刀吧。重构童鞋很给力的用了1天时间把大部分标签都换上了HTML5。</p>
+
+<p>杯具：由于页面上有banner是使用iframe做的。切HTML5后，在banner无内容是，无论对iframe高度如何设置，都会显示一块空白。去查了一下文档，iframe标签在HTML5变成了块元素，不支持height属性了。</p>
+
+<p>解决：iframe内无内容时display=&#8217;none&#8217;来防止开天窗了。</p>
+
+<p>吐槽：HTML5标准，在W3C酝酿了这么多年后，浏览器厂商还是很难达成统一，是不是也有对向下兼容支持不力的原因呢？</p>
+
+<p>补记：一童鞋用设置iframe中的font-hight为0也搞定了，未试验。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">kangjia</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-09T01:47:40+08:00" pubdate data-updated="true">2011-08-09 Tue</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/tech/'>tech</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://kangjia.github.com/dom-bug/" data-via="" data-counturl="http://kangjia.github.com/dom-bug/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left articlenav" href="/kl-redang-trip/" title="Previous Post: 吉隆坡到热浪岛旅游攻略（2011-07-19）">&laquo; 吉隆坡到热浪岛旅游攻略（2011-07-19）</a>
+      
+      
+        <a class="basic-alignment right articlenav" href="/centos-add-sudo-user/" title="Next Post: centos增加sudo用户脚本">centos增加sudo用户脚本 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/backbone-js-use-summary/">backbone.js使用小结</a>
+      </li>
+    
+      <li class="post">
+        <a href="/jquery-data-method-bug/">jQuery data取值小坑</a>
+      </li>
+    
+      <li class="post">
+        <a href="/node-js-outline-view/">node.js速毁提纲</a>
+      </li>
+    
+      <li class="post">
+        <a href="/mac_air-and-thinkpad_keyboard/">Mac Air和Thinkpad键盘</a>
+      </li>
+    
+      <li class="post">
+        <a href="/yestoday-and-tomorrow/">最近</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - kangjia -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'kangjia';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://kangjia.github.com/dom-bug/';
+        var disqus_url = 'http://kangjia.github.com/dom-bug/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
