@@ -9,7 +9,11 @@
   <meta name="author" content="kangjia">
 
   
-  <meta name="description" content="VPS-爪控 博客放免费空间，免不了被墙的命，终于等到了VPS有货，和朋友一起拼了一个。然后就兴致冲冲装系统，加用户，分权限，装ftp。在这个过程中重复的shell命令，突然觉着这种手动控不是我的风格阿～～～仰天长啸 哪里有压迫，哪里就有google。搜了一下vps的面板，发现免费滴没几个。 &hellip;">
+  <meta name="description" content="Number() Number函数可以转换任何数据类型，尝试转换整个value； Boolean值：true&#8211;>1，false&#8211;>0；
+null值：0；
+undefined：NaN；
+字符串： 只有数字：十进制数值，去除前导0
+&#8220;&#8221;空字符串：0 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,6 +29,7 @@
   <script src="/javascripts/ender.js"></script>
   <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="康有才de胡说八道" type="application/atom+xml">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -35,8 +40,15 @@
 
 <body   >
   <header role="banner"><hgroup>
+  <div id="logo">
+  	<div id="logoLeft">{</div>
+  	<div id="logoText">mob</div>
+  	<div id="logoRight">}</div>
+  	<div class="clear"></div>
+  </div>
   <h1><a href="/">康有才de胡说八道</a></h1>
   
+  <div class="clear"></div>
 </hgroup>
 
 </header>
@@ -68,72 +80,9 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/03/vps-and-more/">VPS and More</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-03-30T06:44:11+08:00" pubdate data-updated="true">2011-03-30 Wed</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>VPS-爪控</strong></p>
-
-<p>博客放免费空间，免不了被墙的命，终于等到了VPS有货，和朋友一起拼了一个。然后就兴致冲冲装系统，加用户，分权限，装ftp。在这个过程中重复的shell命令，突然觉着这种手动控不是我的风格阿～～～仰天长啸</p>
-
-<p>哪里有压迫，哪里就有google。搜了一下vps的面板，发现免费滴没几个。选了kloxo，继续gg教程。差不多弄明白后才发现vpsyou提供了集成kloxo的OS。冏是一种习惯!- -。快速重装后，生活开始美好了。</p>
-
-<p><strong>VPS-使用</strong></p>
-
-<p>kloxo下把DNS模板填写后就开始分用户，为了以后方便，都选上了ssh。不过我在centos下木有找到sudoers文件，也没加上sudo权限。不管了，用户添加好后谁想开什么ftp，做什么站就随便了。kloxo需要apache,内存继续悲剧。期间想试试lnmp.org提供的一键包，不过木有好的人机交互就先放弃了。到这里，VPS可以提供的WWW、FTP、MAIL、MYSQL基础服务都有了，</p>
-
-<p><strong>VPS-VPN</strong></p>
-
-<p>VPS只做站，岂不是太对不起RMB了，想想自己也木有什么靠谱的VPN，又开始了搭梯子之旅。centos5.5下有人作了l2tp一键包，执行后就等着就是了。悲剧也进入到了高潮，我的ubuntu小本没找到l2tp连上的方式。算了，改天再去搭个openvpn的吧，另外有达人做了iptable，可以访问天朝的站不走VPN，有兴趣的童鞋可以GG一下，在googlecode开源了。BTW：买个VPS然后专门作VPN服务器去卖应该还能赚钱。白天用办公的电脑跑了一下VPN，梯子速度很给力哈。唉，还是花钱的好！</p>
-
-<p><strong>VPS-blog</strong></p>
-
-<p>kloxo下把站点配置好后，开始搬家之旅。centos都不带ftp客户端，不过想想可怜的内存，忍了，yum装上后，ftp到被墙的blog，wget回来zip包。然后翻墙去倒数据。改域名服务商的指向，一切很顺利的完成了搬家。<sup>_<sup>，终于不怕被墙了。</sup></sup></p>
-
-<p><strong>VPS and more</strong></p>
-
-<p>下午和老袁聊了一会儿，他对云貌似很感兴趣。听他讲也要转到SPD了，也不知道电信这不差钱的主会不会也使用虚拟化，也把主机作成多个VPS,充分利用下主机。不过我倒是觉着原来的BOSS用weblogic作web服务器，真是太奢侈也太浪费了。原来作BOSS作分层，还是分的不彻底。前端放个nginx，后面跟weblogic作业务容器效果应该也不错。最近也要多看看nginx，可以把这个VPS充分利用起来，试试能起几个应用。</p>
-
-<p><strong>VPS TODO</strong></p>
-
-<ul>
-<li><p>对kloxo调优，现在kloxo起一天基本就200M内存+了，研究下哪些服务可以关掉</p></li>
-<li><p>本地ubuntu折腾一下lnmp</p></li>
-<li><p>记得写blog</p></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/02/javascript-function-number-parseint-parsefloat/">学习JavaScript之Number、parseInt、parseFloat</a></h1>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/02/javascript-function-number-parseint-parsefloat/">学习JavaScript之Number、parseInt、parseFloat</a></h1>
     
     
       <p class="meta">
@@ -245,7 +194,9 @@ console.log(parseFloat(23.32));             //23.32
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/02/chrome-bug/">chrome诡异事件之document.write无效</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/02/chrome-bug/">chrome诡异事件之document.write无效</a></h1>
+      
     
     
       <p class="meta">
@@ -339,7 +290,9 @@ try{
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/01/after-setup-ubuntu/">安装ubuntu之后……碎碎念版</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/01/after-setup-ubuntu/">安装ubuntu之后……碎碎念版</a></h1>
+      
     
     
       <p class="meta">
@@ -415,7 +368,9 @@ try{
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/01/ability-outside-of-poems/">功夫在诗外-2010年总结</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/01/ability-outside-of-poems/">功夫在诗外-2010年总结</a></h1>
+      
     
     
       <p class="meta">
@@ -463,7 +418,9 @@ try{
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2011/01/transfer-to-ubuntu/">Transfer to Ubuntu</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2011/01/transfer-to-ubuntu/">Transfer to Ubuntu</a></h1>
+      
     
     
       <p class="meta">
@@ -507,7 +464,9 @@ try{
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/11/leave-sitech/">Say Bye~</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2010/11/leave-sitech/">Say Bye~</a></h1>
+      
     
     
       <p class="meta">
@@ -548,7 +507,9 @@ try{
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/11/think-sitech-product-from-360andqq/">从360和QQ到sitech产品</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2010/11/think-sitech-product-from-360andqq/">从360和QQ到sitech产品</a></h1>
+      
     
     
       <p class="meta">
@@ -587,7 +548,9 @@ try{
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/10/build-a-team-and-team-building/">Build a Team and Team Building</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2010/10/build-a-team-and-team-building/">Build a Team and Team Building</a></h1>
+      
     
     
       <p class="meta">
@@ -633,7 +596,9 @@ TB实施：1、建设有结构的team，结构尽量简单清晰。用unix哲学
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2010/08/thoughts-on-night/">夜，不黑</a></h1>
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2010/08/thoughts-on-night/">夜，不黑</a></h1>
+      
     
     
       <p class="meta">
@@ -661,6 +626,48 @@ TB实施：1、建设有结构的team，结构尽量简单清晰。用unix哲学
 不喜欢在美好的夜也控制自己的思维，虽然此前一直在想两年前甚至多年前到今天我没变的是什么，比如我那双从东边到西边，从南边到北边的帆布鞋。虽然就在刚才我还一直在看以前的那些认识或者已经不认识的朋友的文字和照片，去寻找一些我曾经的痕迹。当我现在回头去想看过的223路牌照片时，却想到的是震天的红色座椅和我曾经在上面写过并删除过的文字；却想到去川人川的那个巷子口，好像很多次从223下车后就直奔进去。但是记不起来走进去后的巷子是什么样的了。<br/>
 倚在窗前，看到成片的房子已经模糊了，灯光是规则状的横竖交织。就那么看着，不知道在看着什么那样看着，不用去寻找此刻发声的一切，静静的感觉。夜，不黑，视觉上已经开始安静了。<br/>
 突然想点一支烟，来怀念自己片刻的安宁。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <!-- Now we're back to normal posts. Note the links used under href in both headers.-->
+        <h1 class="entry-title"><a href="/blog/2010/03/spring-rain/">春雨寄思</a></h1>
+      
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-03-31T09:29:18+08:00" pubdate data-updated="true">2010-03-31 Wed</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>春雨寄思<br/>
+天低挽细雨<br/>
+地暗生草烟<br/>
+棋散双手局<br/>
+酒冷人已去</p>
 </div>
   
   
