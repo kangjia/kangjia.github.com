@@ -1,0 +1,59 @@
+---
+comments: true
+date: 2012-05-31 21:48:52
+layout: post
+slug: svn-merge
+title: svn merge
+wordpress_id: 211
+categories:
+- tech
+tags:
+- svn
+---
+
+最近在折腾svn及开发流程相关的东西。在分支-开发-合并的模型下，merge成了家常便饭。
+
+
+
+
+记两个原来没用过的命令
+
+
+**1.**
+
+    
+    svn mergeinfo $from $to --show-revs merged
+
+查看从分支$from merge到 $to的合并历史
+
+
+
+    
+    svn mergeinfo $from $to --show-revs eligible
+
+查看从分支$from merge到 $to的未合并版本
+
+
+
+
+使用场景：并行开发时，进入测试前，或者发布前，检测是否从trunk做了合并，确保代码安全
+
+
+
+**2.**
+
+    
+    svn merge --reintegrate $trunk
+
+提交branch的修改到trunk
+
+
+
+
+使用场景：并行开发时，发布后，将发布内容同步更新到trunk
+
+
+
+
+根据svn mergeinfo写了个node的check程序，https://gist.github.com/2843516
+不会写svn钩子，如果会可以做集成检测了。

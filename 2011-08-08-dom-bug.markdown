@@ -1,0 +1,88 @@
+---
+comments: true
+date: 2011-08-08 17:47:40
+layout: post
+slug: dom-bug
+title: DOM相关的俩个坑
+wordpress_id: 145
+categories:
+- tech
+tags:
+- html
+---
+
+## 1、IE中图片有白色噪点。
+
+
+
+
+背景：运营童鞋发现轮播效果在IE下时，IE图片有白色噪点，导致图片视觉效果不好。问了team的各位重构师，木有人知道咋回事。初步怀疑运营图片压缩导致的。可是wget下来图片是正常的。
+
+
+
+
+gg之，使用filter做渐变透明效果时，IE6下会有噪点。
+
+
+
+    
+    
+    FILTER:alpha(opacity=100)
+    
+    
+
+
+
+
+
+
+
+
+仔细排查了代码，的确是使用jquery.animate时使用了opacity效果。
+
+
+
+    
+    eg: var imagesPlay = function(next) { jQuery(".team_images li";).eq(imgListCurr).css({"opacity":"0.5&"}).animate({"left":"-480px","opacity":"1";},...
+
+
+
+
+解决：去掉了opacity效果。有童鞋说如果是png或者gif的图片做幻灯片不会有噪点，未做尝试，有效果滴同学可以回复一下。
+
+
+
+
+  
+
+	
+
+
+
+
+## 2、HTML5的iframe问题
+
+
+
+
+背景：既然一直声称技术驱动型公司，那我们就上HTML5开刀吧。重构童鞋很给力的用了1天时间把大部分标签都换上了HTML5。
+
+
+
+
+杯具：由于页面上有banner是使用iframe做的。切HTML5后，在banner无内容是，无论对iframe高度如何设置，都会显示一块空白。去查了一下文档，iframe标签在HTML5变成了块元素，不支持height属性了。
+
+
+
+
+解决：iframe内无内容时display='none'来防止开天窗了。
+
+
+
+
+吐槽：HTML5标准，在W3C酝酿了这么多年后，浏览器厂商还是很难达成统一，是不是也有对向下兼容支持不力的原因呢？
+
+
+
+补记：一童鞋用设置iframe中的font-hight为0也搞定了，未试验。
+
